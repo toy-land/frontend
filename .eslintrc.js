@@ -17,6 +17,5 @@ module.exports = {
     'import/no-unresolved': 0,
     'react/prop-types': 0,
     'no-unused-vars': 'warn',
-    'import/no-extraneous-dependencies': 0,
   },
 };
