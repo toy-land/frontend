@@ -21,11 +21,7 @@ const Wrapper = styled.div`
 
 const WrapText = styled.div`
   padding-left: 10px;
-<<<<<<< HEAD
   ${({ hasX }) => (hasX === true ? 'padding-right: 5px;' : 'padding-right: 10px;')}
-=======
-  ${({ hasX }) => (hasX ? 'padding-right: 5px;' : 'padding-right: 10px;')}
->>>>>>> b423f13 (chore(env): styled-components GlobalStyles 적용)
   font-size: 12px;
   font-weight: bold;
 `;
