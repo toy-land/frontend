@@ -4,10 +4,9 @@ import styled from 'styled-components';
 import C from '@components';
 
 const Wrapper = styled.div`
-  width: 100%;
+  width: calc(100% - 3rem);
   max-width: 100rem;
   height: 6rem;
-  padding: 0 1.5rem 0 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
