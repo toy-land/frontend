@@ -21,7 +21,7 @@ const CardList = styled.ul`
 
 `;
 
-function CardBox({ index }) {
+function CardBox({ page }) {
   const {
     data, loading, success, error,
   } = useSelector(
@@ -32,8 +32,8 @@ function CardBox({ index }) {
 
   // 컴포넌트 마운트 후 포스트 목록 요청
   useEffect(() => {
-    dispatch(getToysThunk(index));
-  }, [index]);
+    dispatch(getToysThunk(page));
+  }, [page]);
 
   const loopToys = (toys) => {
     const renderedToys = toys.map((toy) => (

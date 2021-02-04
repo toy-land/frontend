@@ -23,13 +23,13 @@ const Button = styled.button`
 `;
 
 function MainView() {
-  const [index, setIndex] = useState(0);
+  const [page, setPage] = useState(0);
   return (
     <MainViewWrapper>
       <CardArea>
-        <CardBox index={index} />
+        <CardBox page={page} />
       </CardArea>
-      <Button onClick={() => { setIndex(index + 6); }}>
+      <Button onClick={() => { setPage(page + 1); }}>
         아래로
       </Button>
     </MainViewWrapper>
