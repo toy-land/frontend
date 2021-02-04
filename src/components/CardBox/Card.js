@@ -4,20 +4,23 @@ import styled from 'styled-components';
 const CardWrapper = styled.li`
   flex-basis: 30%;
   height: 16rem;
-  margin: 0.5rem;
+  margin: 1.2rem;
   background-color: #004460;
-  border-radius: 8%;
+  border-radius: 1.9rem;
+  letter-spacing: 0.05rem;
 `;
 
 const Title = styled.p`
   font-size: 1.8rem;
   color: rgba(255,255,255);
   font-weight: 700;
+  letter-spacing: 0.2rem;
 `;
 
 const Description = styled.p`
-  margin-top: 0.3rem;
+  margin-top: 0.8rem;
   font-size: 1.2rem;
+  letter-spacing: 0.15rem;
 `;
 
 const Category = styled.p``;
@@ -28,34 +31,33 @@ const ActiveComment = styled.p`
   position: absolute;
   bottom: 12px;
   color: rgba(255,255,255,0.5);
-  font-weight: 300;
+  font-weight: 400;
 `;
 
 const ContentArea = styled.div`
   position: relative;
   box-sizing: border-box;
   height: inherit;
-  padding: 2rem 3rem;
+  padding: 2rem 2rem;
 `;
 
 const TopLine = styled.div`
   display: flex;
-  font-weight: 200;
+  font-weight: 300;
   justify-content: space-between;
-  color: rgba(255,255,255,0.5)
+  color: rgba(255,255,255,0.5);
 `;
 
 const MiddleLine = styled.div`
   margin-top: 2rem;
-  color: rgba(255,255,255,0.5)
-
+  color: rgba(255,255,255,0.5);
 `;
 
 const Emoji = styled.p`
   position: absolute;
   font-size: 5rem;
   bottom: 15px;
-  right: 20px;
+  right: 18px;
 `;
 
 function Card({ toy }) {
