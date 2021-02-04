@@ -1,3 +1,6 @@
 import Button from './Button';
+import CreateButton from './CreateButton';
 
-export default { Button };
+export default {
+  CreateButton,
+};
