@@ -53,20 +53,20 @@ const MiddleLine = styled.div`
   color: rgba(255,255,255,0.5);
 `;
 
-const Emoji = styled.p`
+const EmojiWrapper = styled.p`
   position: absolute;
   font-size: 5rem;
   bottom: 15px;
   right: 18px;
 `;
 
-function Card({ toy }) {
+function Card({ toy, emoji, active }) {
   return (
     <CardWrapper>
       <ContentArea>
         <TopLine>
           <Date>
-            1시간전 ACTIVATED
+            {`active 정도: ${active}`}
           </Date>
           <Category>
             {toy.category}
@@ -80,9 +80,9 @@ function Card({ toy }) {
             {toy.description}
           </Description>
         </MiddleLine>
-        <Emoji>
-          🔥
-        </Emoji>
+        <EmojiWrapper>
+          {emoji}
+        </EmojiWrapper>
         <ActiveComment>
           레드불 샀어? 개발자 갈리는 소리 들려?
         </ActiveComment>
