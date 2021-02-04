@@ -6,23 +6,23 @@ import colorType from '@constants/colorType';
 
 const Wrapper = styled.div`
   width: fit-content;
-  height: 26px;
+  height: 2.6rem;
   background-color: ${({ backgroundColor }) => backgroundColor};
   color: ${({ fontColor }) => fontColor};
   display: fles;
   justify-content: center;
   align-items: center;
-  margin: 5px;
-  border-radius: 13px;
+  margin: 0.5rem;
+  border-radius: 1.3rem;
   &:hover {
     background-color: ${({ backgroundColor }) => darken(0.04, backgroundColor)};
   }
 `;
 
 const WrapText = styled.div`
-  padding-left: 10px;
-  ${({ hasX }) => (hasX === true ? 'padding-right: 5px;' : 'padding-right: 10px;')}
-  font-size: 12px;
+  padding-left: 1rem;
+  ${({ hasX }) => (hasX === true ? 'padding-right: 0.5rem;' : 'padding-right: 1rem;')}
+  font-size: 1.2rem;
   font-weight: bold;
 `;
 
@@ -30,12 +30,12 @@ const WrapCancel = styled.div`
   display: fles;
   justify-content: center;
   align-items: center;
-  width: 26px;
-  height: 26px;
-  border-radius: 13px;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 1.3rem;
   background-color: ${({ backgroundColor }) => backgroundColor};
   cursor: pointer;
-  font-size: 12px;
+  font-size: 1.2rem;
   &:hover {
     background: ${({ backgroundColor }) => darken(0.04, backgroundColor)};
   }
