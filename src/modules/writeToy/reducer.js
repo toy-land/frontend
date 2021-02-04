@@ -5,6 +5,7 @@ const initialState = {
   writeToyStatus: {
     loading: false,
     data: null,
+    success: null,
     error: null,
   },
 };

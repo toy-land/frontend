@@ -5,6 +5,7 @@ const initialState = {
   removeToyStatus: {
     loading: false,
     data: null,
+    success: null,
     error: null,
   },
 };

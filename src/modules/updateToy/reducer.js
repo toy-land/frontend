@@ -5,6 +5,7 @@ const initialState = {
   updateToyStatus: {
     loading: false,
     data: null,
+    success: null,
     error: null,
   },
 };
