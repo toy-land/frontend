@@ -1,11 +1,12 @@
 import axios from 'axios';
 
-const apiUrl = 'https://opendb.gitools.net';
+const apiUrl = 'http://49.50.175.141:8080/api';
 
-export const getToyApi = (id) => axios.get(`${apiUrl}/demo/${id}`);
+export const getToyApi = (id) => axios.get(`${apiUrl}/toys/${id}`);
 
-export const getToysApi = () => axios.get(`${apiUrl}/demo`);
+export const getToysApi = (page = 0) => axios.get(`${apiUrl}/toys?page=${page}`);
 
+// 아래는 수정 필요합니다.
 export const postToyApi = (data) => axios.post(`${apiUrl}/demo.json`, data);
 
 export const putToyApi = ({ id, data }) => axios.put(`${apiUrl}/demo/${id}`, data);

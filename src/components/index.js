@@ -1,8 +1,4 @@
-import Button from './Button';
-import Header from './Header';
-import CreateButton from './CreateButton';
+import CardBox from './CardBox';
+import MainView from './MainView';
 
-export default {
-  Header,
-  CreateButton,
-};
+export default { CardBox, MainView };

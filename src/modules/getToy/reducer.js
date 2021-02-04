@@ -1,15 +1,17 @@
-import { reducerUtils } from '../../utils/asyncUtils';
+import { reducerUtils } from '@utils/asyncUtils';
 import * as actions from './actions';
 
 const initialState = {
   getToyStatus: {
     loading: false,
     data: null,
+    success: null,
     error: null,
   },
   getToysStatus: {
     loading: false,
     data: null,
+    success: null,
     error: null,
   },
 };

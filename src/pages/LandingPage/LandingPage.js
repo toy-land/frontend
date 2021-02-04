@@ -21,13 +21,15 @@ const WrapContainer = styled.div`
 `;
 
 
+import C from '@components';
+
 export default function LandingPage() {
   return (
     <Wrapper>
       <WrapContainer>
         <C.Header />
     <div>
-      <span>Landing</span>
+      <C.MainView />
     </div>
       </WrapContainer>
     </Wrapper>
