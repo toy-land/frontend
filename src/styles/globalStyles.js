@@ -93,7 +93,9 @@ export default createGlobalStyle`
         url('https://cdn.jsdelivr.net/gh/spoqa/spoqa-han-sans@3.1.0/Subset/SpoqaHanSansNeo/SpoqaHanSansNeo-Thin.woff') format('woff'),
         url('https://cdn.jsdelivr.net/gh/spoqa/spoqa-han-sans@3.1.0/Subset/SpoqaHanSansNeo/SpoqaHanSansNeo-Thin.ttf') format('truetype');
     }
-
+    html {
+    font-size: 62.5% !important;
+    }
     body {
         font-family: 'Spoqa Han Sans';
     }
