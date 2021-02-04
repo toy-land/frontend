@@ -1,3 +1,3 @@
-import Button from './Button';
+import CardBox from './CardBox';
 
-export default { Button };
+export default { CardBox };

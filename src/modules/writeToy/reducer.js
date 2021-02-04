@@ -1,4 +1,4 @@
-import { reducerUtils } from '../../utils/asyncUtils';
+import { reducerUtils } from '@utils/asyncUtils';
 import * as actions from './actions';
 
 const initialState = {
