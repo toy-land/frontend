@@ -136,7 +136,7 @@ const WrapSelector = styled.div`
   justify-content: space-between;
   width: 100%;
   margin-top: 3rem;
-  margin-bottom: 3rem;
+  margin-bottom: 6rem;
   > div {
     width: 20rem;
     font-size: 1.5rem;

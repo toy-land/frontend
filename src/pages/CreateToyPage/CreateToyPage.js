@@ -191,7 +191,7 @@ const WrapSelector = styled.div`
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 2rem;
+  margin-bottom: 6rem;
   > div {
     width: 20rem;
     font-size: 1.5rem;
