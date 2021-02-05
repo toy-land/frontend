@@ -53,7 +53,7 @@ function CardBox({ page }) {
 
   const loopToys = (toys) => {
     const renderedToys = toys.map((toy) => {
-      const pushedDate = '2021-02-04T16:15:30';
+      const pushedDate = toy.active;
       const active = getActive(pushedDate);
       const emoji = emojiTheme[emojiKey][active];
       return (

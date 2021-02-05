@@ -66,7 +66,6 @@ export default function InputRepoPage({ url, setUrl, handleData }) {
       <WrapFlex>
         <WrapInput
           placeholder="https://"
-          value={url}
           onChange={(e) => setUrl(e.target.value)}
         />
         <WrapButton

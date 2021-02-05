@@ -1,3 +1,4 @@
+import { activeDate, activeComment } from '@constants/activeText';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -18,7 +19,7 @@ const Category = styled.p``;
 
 const Date = styled.p``;
 
-const ActiveComment = styled.p`
+const ActiveCommentWrapper = styled.p`
   position: absolute;
   bottom: 12px;
   color: rgba(255,255,255,0.5);
@@ -56,7 +57,7 @@ function CardContent({ toy, emoji, active }) {
     <ContentArea>
       <TopLine>
         <Date>
-          {`active 정도: ${active}`}
+          {activeDate[active]}
         </Date>
         <Category>
           {toy.category}
@@ -73,9 +74,9 @@ function CardContent({ toy, emoji, active }) {
       <EmojiWrapper>
         {emoji}
       </EmojiWrapper>
-      <ActiveComment>
-        레드불 샀어? 개발자 갈리는 소리 들려?
-      </ActiveComment>
+      <ActiveCommentWrapper>
+        {activeComment[active]}
+      </ActiveCommentWrapper>
     </ContentArea>
   );
 }
