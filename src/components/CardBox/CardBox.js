@@ -54,7 +54,7 @@ function CardBox({ page }) {
       const emoji = emojiTheme[emojiKey][active];
       return (
         <>
-          <Card toy={toy} emoji={emoji} active={active} />
+          <Card toy={toy} emoji={emoji} active={active} id={toy.id} />
         </>
       );
     });

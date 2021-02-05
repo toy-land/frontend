@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useDrag, DragPreviewImage } from 'react-dnd';
 import styled, { css } from 'styled-components';
@@ -27,9 +28,11 @@ const CardWrapper = styled.li`
 
 `;
 
-function Card({ toy, emoji, active }) {
+function Card({
+  toy, emoji, active, id,
+}) {
   const isDragReady = useSelector((state) => state.dragToy.dragStatus);
-
+  const history = useHistory();
   const [{ isDragging }, drag, preview] = useDrag({
     item: { type: ItemTypes.CARD },
     begin: (monitor) => {
@@ -55,7 +58,7 @@ function Card({ toy, emoji, active }) {
           </CardWrapper>
         )
         : (
-          <CardWrapper isDragReady={isDragReady}>
+          <CardWrapper onClick={() => history.push(`/detail/${id}`)} isDragReady={isDragReady}>
             <CardContent toy={toy} emoji={emoji} active={active} />
           </CardWrapper>
         )}
