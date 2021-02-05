@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 import React, { useEffect, useState } from 'react';
 import Card from '@components/CardBox/Card';
 import styled from 'styled-components';
@@ -57,6 +58,7 @@ function CardBox({ page }) {
         </>
       );
     });
+    console.log(renderedToys);
     return renderedToys;
   };
 
@@ -69,7 +71,7 @@ function CardBox({ page }) {
           로딩 중...
         </h>
         )}
-        {success
+        {!loading && success
            && (
            <>
              {loopToys(data)}
