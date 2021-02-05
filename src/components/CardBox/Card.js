@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useDrag, DragPreviewImage } from 'react-dnd';
 import styled, { css } from 'styled-components';
 import { ItemTypes } from '@constants/itemType';
-import testImg from '@styles/testImg.png';
+import trash from '@styles/img/trash.png';
 import CardContent from './CardContent';
 
 const CardWrapper = styled.li`
@@ -47,7 +47,7 @@ function Card({ toy, emoji, active }) {
 
   return (
     <>
-      <DragPreviewImage src={testImg} connect={preview} />
+      <DragPreviewImage src={trash} connect={preview} />
       {isDragReady
         ? (
           <CardWrapper ref={drag} isDragging={isDragging} isDragReady={isDragReady}>
