@@ -5,13 +5,12 @@ import styled from 'styled-components';
 const CardArea = styled.div`
   display: flex;
   justify-content: center;
-  background-color: darkgray;
+  /* background-color: darkgray; */
 `;
 
 const MainViewWrapper = styled.div`
   position: relative;
   background-color: black;
-  padding: 0 20rem;
 `;
 
 const Button = styled.button`

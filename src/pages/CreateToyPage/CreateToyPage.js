@@ -1,5 +1,9 @@
 import React from 'react';
 
 export default function CreateToyPage() {
-  return <></>;
+  return (
+    <div>
+      <span>CreateToyPage</span>
+    </div>
+  );
 }
