@@ -8,6 +8,10 @@ export const getToysApi = (page = 0) => axios.get(`${apiUrl}/toys?page=${page}`)
 
 export const getSkillsApi = () => axios.get(`${apiUrl}/skills`);
 
+export const getOrgnizationsApi = () => axios.get(`${apiUrl}/organizations`);
+
+export const getCategoriesApi = () => axios.get(`${apiUrl}/categories`);
+
 export const postToyApi = (data) => axios.post(`${apiUrl}/toys`, data);
 
 export const putToyApi = ({ id, passwd }) => axios.put(`${apiUrl}/toys/${id}`, { passwd });

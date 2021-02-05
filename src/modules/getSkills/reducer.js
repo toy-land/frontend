@@ -8,6 +8,18 @@ const initialState = {
     success: null,
     error: null,
   },
+  getOrganizationsStatus: {
+    loading: false,
+    data: null,
+    success: null,
+    error: null,
+  },
+  getCategoriesStatus: {
+    loading: false,
+    data: null,
+    success: null,
+    error: null,
+  },
 };
 
 const getSkill = (state = initialState, action) => {
@@ -26,6 +38,36 @@ const getSkill = (state = initialState, action) => {
       return {
         ...state,
         getSkillsStatus: reducerUtils.fail(action.payload),
+      };
+    case actions.GET_ORGANIZATIONS:
+      return {
+        ...state,
+        getOrganizationsStatus: reducerUtils.loading(),
+      };
+    case actions.GET_ORGANIZATIONS_SUCCESS:
+      return {
+        ...state,
+        getOrganizationsStatus: reducerUtils.success(action.payload),
+      };
+    case actions.GET_ORGANIZATIONS_FAIL:
+      return {
+        ...state,
+        getOrganizationsStatus: reducerUtils.fail(action.payload),
+      };
+    case actions.GET_CATEGORIES:
+      return {
+        ...state,
+        getCategoriesStatus: reducerUtils.loading(),
+      };
+    case actions.GET_CATEGORIES_SUCCESS:
+      return {
+        ...state,
+        getCategoriesStatus: reducerUtils.success(action.payload),
+      };
+    case actions.GET_CATEGORIES_FAIL:
+      return {
+        ...state,
+        getCategoriesStatus: reducerUtils.fail(action.payload),
       };
     default:
       return state;
