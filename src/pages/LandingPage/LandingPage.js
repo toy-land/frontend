@@ -26,9 +26,9 @@ export default function LandingPage() {
       <Wrapper>
         <WrapContainer>
           <C.Header />
+          <C.MainView />
         </WrapContainer>
       </Wrapper>
-      <C.MainView />
     </>
   );
 }

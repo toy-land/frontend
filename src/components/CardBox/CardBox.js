@@ -29,9 +29,9 @@ function CardBox({ page }) {
   } = useSelector(
     (state) => state.getToy.getToysStatus,
   );
-  const [emojiKey, setEmojiKey] = useState('');
+  const [emojiKey, setEmojiKey] = useState(0);
 
-  const getRandomKey = () => Math.floor(Math.random() * 10) % 2;
+  const getRandomKey = () => Math.floor(Math.random() * 10) % 5;
 
   const dispatch = useDispatch();
 
@@ -49,8 +49,7 @@ function CardBox({ page }) {
   const loopToys = (toys) => {
     const renderedToys = toys.map((toy) => {
       const pushedDate = '2021-02-04T16:15:30';
-      let active = getActive(pushedDate);
-      active %= 2; // 현재 두 가지 테마만 있음니다
+      const active = getActive(pushedDate);
       const emoji = emojiTheme[emojiKey][active];
       return (
         <>

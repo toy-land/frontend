@@ -11,7 +11,6 @@ const CardArea = styled.div`
 const MainViewWrapper = styled.div`
   position: relative;
   background-color: black;
-  padding: 0 20rem;
 `;
 
 const Button = styled.button`
