@@ -4,15 +4,15 @@ import * as actions from './actions';
 const initialState = {
   getToyStatus: {
     loading: false,
-    data: null,
     success: null,
     error: null,
+    data: null,
   },
   getToysStatus: {
     loading: false,
-    data: null,
     success: null,
     error: null,
+    data: [],
   },
 };
 
@@ -36,17 +36,30 @@ const getToy = (state = initialState, action) => {
     case actions.GET_TOYS:
       return {
         ...state,
-        getToysStatus: reducerUtils.loading(),
+        getToysStatus: {
+          ...state.getToysStatus,
+          loading: true,
+        },
       };
     case actions.GET_TOYS_SUCCESS:
       return {
         ...state,
-        getToysStatus: reducerUtils.success(action.payload),
+        getToysStatus: {
+          ...state.getToysStatus,
+          loading: false,
+          success: true,
+          data: [...state.getToysStatus.data, ...action.payload],
+        },
       };
     case actions.GET_TOYS_FAIL:
       return {
         ...state,
-        getToysStatus: reducerUtils.fail(action.payload),
+        getToysStatus: {
+          ...state.getToysStatus,
+          loading: false,
+          success: false,
+          error: action.payload,
+        },
       };
     default:
       return state;
