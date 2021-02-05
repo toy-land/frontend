@@ -8,6 +8,12 @@ export const getToysApi = (page = 0) => axios.get(`${apiUrl}/toys?page=${page}`)
 
 export const getSkillsApi = () => axios.get(`${apiUrl}/skills`);
 
+export const postToyApi = (data) => axios.post(`${apiUrl}/toys`, data);
+
+export const putToyApi = ({ id, data }) => axios.put(`${apiUrl}/toys/${id}`, data);
+
+export const deleteToyApi = ({ id }) => axios.delete(`${apiUrl}/toys/${id}`);
+
 const readmeUrl = 'https://raw.githubusercontent.com';
 
 export const getReadmeApi = (param) => axios.get(`${readmeUrl}${param}/master/README.md`);
@@ -17,10 +23,3 @@ const githubUrl = 'https://api.github.com/repos';
 export const getGithubApi = (param) => axios.get(`${githubUrl}${param}`);
 
 export const getContributorApi = (param) => axios.get(`${githubUrl}${param}/contributors`);
-
-// 아래는 수정 필요합니다.
-export const postToyApi = (data) => axios.post(`${apiUrl}/toys`, data);
-
-export const putToyApi = ({ id, data }) => axios.put(`${apiUrl}/demo/${id}`, data);
-
-export const deleteToyApi = ({ id }) => axios.delete(`${apiUrl}/demo/${id}`);
