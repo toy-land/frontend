@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import DeleteModal from '@atoms/DeleteModal';
 import { removeToyThunk } from '@modules/removeToy';
-import styled from 'styled-components';
 import Overlay from '@atoms/Overlay';
 
 function DeleteBox({ toyId, setRemoveToggle }) {
