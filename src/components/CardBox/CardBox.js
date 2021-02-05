@@ -6,7 +6,6 @@ import { getToysThunk } from '@modules/getToy';
 import { useDispatch, useSelector } from 'react-redux';
 import { getActive } from '@utils/getActive';
 import { emojiTheme } from '@constants/emojiTheme';
-import { toyMock } from '@constants/toyMock';
 
 const CardContainer = styled.div`
   padding: 0 3rem;
@@ -59,38 +58,25 @@ function CardBox({ page }) {
         </>
       );
     });
+    console.log(renderedToys);
     return renderedToys;
-  };
-
-  const makeFakeToys = () => {
-    const pushedDate = '2021-02-04T16:15:30';
-    const active = getActive(pushedDate);
-    const emoji = emojiTheme[emojiKey][active];
-    const mockToys = [];
-    for (let i = 0; i < 20; i++) {
-      mockToys.push(
-        <Card toy={toyMock} emoji={emoji} active={active} />,
-      );
-    }
-    return mockToys;
   };
 
   return (
     <CardContainer>
       <CardList>
-        { makeFakeToys() }
-        {/* {loading
+        {loading
         && (
         <h>
           로딩 중...
         </h>
         )}
-        {success
+        {!loading && success
            && (
            <>
              {loopToys(data)}
            </>
-           )} */}
+           )}
       </CardList>
     </CardContainer>
   );

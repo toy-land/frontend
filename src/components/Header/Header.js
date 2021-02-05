@@ -25,7 +25,6 @@ export default function Header() {
   return (
     <Wrapper>
       <WrapLogo>토이랜드</WrapLogo>
-      <C.CreateButton />
     </Wrapper>
   );
 }

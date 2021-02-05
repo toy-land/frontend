@@ -1,4 +1,3 @@
 import Tag from './Tag';
-import IconWrapper from './IconWrapper';
 
-export default { Tag, IconWrapper };
+export default { Tag };
