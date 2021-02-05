@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const CardArea = styled.div`
   display: flex;
   justify-content: center;
-  background-color: darkgray;
+  /* background-color: darkgray; */
 `;
 
 const MainViewWrapper = styled.div`

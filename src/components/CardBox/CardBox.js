@@ -49,7 +49,8 @@ function CardBox({ page }) {
   const loopToys = (toys) => {
     const renderedToys = toys.map((toy) => {
       const pushedDate = '2021-02-04T16:15:30';
-      const active = getActive(pushedDate);
+      let active = getActive(pushedDate);
+      active %= 2; // 현재 두 가지 테마만 있음니다
       const emoji = emojiTheme[emojiKey][active];
       return (
         <>

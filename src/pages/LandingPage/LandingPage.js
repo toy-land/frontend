@@ -20,18 +20,15 @@ const WrapContainer = styled.div`
   justify-content: center;
 `;
 
-
-import C from '@components';
-
 export default function LandingPage() {
   return (
-    <Wrapper>
-      <WrapContainer>
-        <C.Header />
-    <div>
+    <>
+      <Wrapper>
+        <WrapContainer>
+          <C.Header />
+        </WrapContainer>
+      </Wrapper>
       <C.MainView />
-    </div>
-      </WrapContainer>
-    </Wrapper>
+    </>
   );
 }
