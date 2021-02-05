@@ -126,7 +126,9 @@ export default createGlobalStyle`
         font-weight: normal;
         font-style: normal;
     }
-
+    html {
+    font-size: 62.5% !important;
+    }
     body {
         font-family: 'Spoqa Han Sans';
         font-size: 62.5% !important;
