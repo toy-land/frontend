@@ -18,7 +18,7 @@ const Circle = styled.div`
     opacity: 0.8;
   }
 
-  ${(props) => props.dragStatus && css`
+  ${(props) => props.isDragReady && css`
     position: relative;
     z-index: 100;
   `}
@@ -29,9 +29,9 @@ const IconEmojiWrapper = styled.p`
 `;
 
 function SideIcon({ iconEmoji, handleClick, drop }) {
-  const dragStatus = useSelector((state) => state.dragToy.dragStatus);
+  const isDragReady = useSelector((state) => state.dragToy.isDragReady);
   return (
-    <Circle onClick={handleClick} ref={drop} dragStatus={dragStatus}>
+    <Circle onClick={handleClick} ref={drop} isDragReady={isDragReady}>
       <IconEmojiWrapper>
         {iconEmoji}
       </IconEmojiWrapper>

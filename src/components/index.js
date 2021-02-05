@@ -3,6 +3,7 @@ import MainView from './MainView';
 import MarkdownEditor from './MarkdownEditor';
 import Header from './Header';
 import SideIconBox from './SideIconBox';
+import DeleteBox from './DeleteBox';
 
 export default {
   CardBox,
@@ -10,4 +11,5 @@ export default {
   MarkdownEditor,
   Header,
   SideIconBox,
+  DeleteBox,
 };
