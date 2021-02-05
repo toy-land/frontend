@@ -23,7 +23,7 @@ export default function MarkdownEditor({ url }) {
     if (url) {
       dispatch(getReadmeThunk(url.replace('https://github.com', '')));
     }
-  }, [dispatch]);
+  }, [url]);
 
   useEffect(() => {
     console.log(error);

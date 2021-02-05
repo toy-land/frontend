@@ -64,6 +64,7 @@ function CardBox({ page }) {
             active={active}
             setRemoveToggle={setRemoveToggle}
             setToyId={setToyId}
+            id={toy.id}
           />
         </>
       );

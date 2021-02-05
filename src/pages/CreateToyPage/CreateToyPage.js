@@ -306,14 +306,12 @@ export default function CreateToyPage({ history }) {
         })),
       });
 
-      const contributorInfo = getContributorStatus.data.map((each) => ({
+      setContributor(getContributorStatus.data.map((each) => ({
         url: each.avatar_url,
         id: each.id,
         name: each.login,
         github: each.html_url,
-      }));
-
-      setContributor([...contributor, ...contributorInfo]);
+      })));
     }
   }, [getContributorStatus.data]);
 
