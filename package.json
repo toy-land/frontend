@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "craco start",
-    "build": "craco build"
+    "build": "CLIENT_ENV=production craco build"
   },
   "browserslist": {
     "production": [
