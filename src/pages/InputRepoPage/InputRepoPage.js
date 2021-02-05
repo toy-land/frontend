@@ -2,16 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 
 const WrapContainer = styled.div`
-  width: 80%;
-  height: 80%;
+  max-width: 1200px;
+  width: 65%;
+  height: 65%;
   background-color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border-radius: 4rem;
+  flex-wrap: wrap;
+  border-radius: 1.5rem;
+  padding: 5rem 5rem 5rem 5rem;
 `;
-
 const WrapFont = styled.div`
   font-family: S-CoreDream-5;
   font-size: 2rem;
