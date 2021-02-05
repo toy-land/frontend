@@ -3,7 +3,7 @@ import LandingPage from './LandingPage';
 import CreateToyPage from './CreateToyPage';
 
 export default {
-  DetailPage,
   LandingPage,
+  DetailPage,
   CreateToyPage,
 };

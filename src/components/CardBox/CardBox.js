@@ -29,9 +29,9 @@ function CardBox({ page }) {
   } = useSelector(
     (state) => state.getToy.getToysStatus,
   );
-  const [emojiKey, setEmojiKey] = useState('');
+  const [emojiKey, setEmojiKey] = useState(0);
 
-  const getRandomKey = () => Math.floor(Math.random() * 10) % 2;
+  const getRandomKey = () => Math.floor(Math.random() * 10) % 5;
 
   const dispatch = useDispatch();
 
