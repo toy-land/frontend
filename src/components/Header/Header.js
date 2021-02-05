@@ -4,9 +4,12 @@ import styled from 'styled-components';
 import C from '@components';
 
 const Wrapper = styled.div`
+  box-sizing: border-box;
+  margin-top: 2vw;
+  padding: 0 2rem;
   width: calc(100% - 3rem);
-  max-width: 100rem;
-  height: 6rem;
+  max-width: 120rem;
+  height: 8vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -17,7 +20,7 @@ const WrapLogo = styled.div`
   justify-content: center;
   align-items: center;
   font-family: S-CoreDream-6;
-  font-size: 2rem;
+  font-size: 3rem;
   color: ${({ theme }) => theme.colors.white};
 `;
 

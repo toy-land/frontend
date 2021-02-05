@@ -1,4 +1,5 @@
 import CardBox from '@components/CardBox';
+import { darken } from 'polished';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
@@ -13,12 +14,24 @@ const MainViewWrapper = styled.div`
   background-color: black;
 `;
 
-const Button = styled.button`
-  width: 10rem;
-  height: 5rem;
+const MoreButton = styled.button`
   position: absolute;
-  bottom: 1rem;
+  outline: 0;
+  border: none;
+  border-radius: 8rem;
+  cursor: pointer;
+  width: 8rem;
+  height: 5rem;
+  bottom: -3rem;
   right: 50%;
+  &:hover {
+    opacity: 0.8;
+  }
+
+  p {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
 `;
 
 function MainView() {
@@ -28,9 +41,9 @@ function MainView() {
       <CardArea>
         <CardBox page={page} />
       </CardArea>
-      <Button onClick={() => { setPage(page + 1); }}>
-        아래로
-      </Button>
+      <MoreButton onClick={() => { setPage(page + 1); }}>
+        <p>more</p>
+      </MoreButton>
     </MainViewWrapper>
   );
 }

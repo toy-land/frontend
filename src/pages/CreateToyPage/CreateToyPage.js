@@ -56,6 +56,17 @@ const WrapContainer = styled.div`
   ::-webkit-scrollbar-thumb {
     border-top-right-radius: 2rem;
   }
+  ::-webkit-scrollbar {
+        background-color:white;
+        width: 1.5rem;
+    }
+    ::-webkit-scrollbar-track {
+        background-color:white
+    }
+    ::-webkit-scrollbar-thumb {
+        background-color:#00b2fa
+        ;
+    }
   position: relative;
 `;
 

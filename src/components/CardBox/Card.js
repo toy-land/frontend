@@ -1,10 +1,11 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useDrag, DragPreviewImage } from 'react-dnd';
 import styled, { css } from 'styled-components';
 import { ItemTypes } from '@constants/itemType';
-import testImg from '@styles/testImg.png';
+import trash from '@assets/images/trash.png';
+import { toggleDrag } from '@modules/dragToy';
 import CardContent from './CardContent';
 
 const CardWrapper = styled.li`
@@ -29,10 +30,12 @@ const CardWrapper = styled.li`
 `;
 
 function Card({
-  toy, emoji, active, id,
+  toy, emoji, active, setRemoveToggle, setToyId, id,
 }) {
-  const isDragReady = useSelector((state) => state.dragToy.dragStatus);
+  const isDragReady = useSelector((state) => state.dragToy.isDragReady);
+  const dispatch = useDispatch();
   const history = useHistory();
+
   const [{ isDragging }, drag, preview] = useDrag({
     item: { type: ItemTypes.CARD },
     begin: (monitor) => {
@@ -41,7 +44,13 @@ function Card({
     end: (item, monitor) => {
       if (!monitor.didDrop()) {
         console.log('drop fail');
+        return;
       }
+      dispatch(toggleDrag()); // dnd가 완료 됐으므로 drag 준비 상태를 끕니다.
+      // 삭제 데이터 전송
+      setToyId(toy.id); // 삭제를 위해 container에 toy.id를 전달합니다.
+      console.log(`test::: ${toy.id}`);
+      setRemoveToggle(true); // 삭제를 위해 removeToggle을 킵니다.
     },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
@@ -50,7 +59,7 @@ function Card({
 
   return (
     <>
-      <DragPreviewImage src={testImg} connect={preview} />
+      <DragPreviewImage src={trash} connect={preview} />
       {isDragReady
         ? (
           <CardWrapper ref={drag} isDragging={isDragging} isDragReady={isDragReady}>
