@@ -3,22 +3,24 @@ import MDEditor from '@uiw/react-md-editor';
 
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
-import { getReadmeThunk } from '@modules/getGitHub';
+import { getReadmeThunk } from '@modules/getGithub';
 
 const Wrapper = styled.div`
-  color: white;
-  width: 80%;
+  width: 100%;
+  height: 100%;
 `;
-export default function MarkdownEditor() {
-  const [value, setValue] = useState('**Hello world!!!**');
+
+export default function MarkdownEditor({ url }) {
+  const [value, setValue] = useState('');
   const { data, loading, error } = useSelector(
     (state) => state.getGithub.getReadmeStatus,
   );
   const dispatch = useDispatch();
 
-  // 컴포넌트 마운트 후 포스트 목록 요청
   useEffect(() => {
-    dispatch(getReadmeThunk('/Yapp-17th/Web_2_Client'));
+    if (url) {
+      dispatch(getReadmeThunk(url.replace('https://github.com', '')));
+    }
   }, [dispatch]);
 
   useEffect(() => {
@@ -32,7 +34,7 @@ export default function MarkdownEditor() {
   }, [data]);
   return (
     <Wrapper>
-      <MDEditor.Markdown source={value} />
+      {!loading && data && <MDEditor.Markdown source={value} />}
     </Wrapper>
   );
 }

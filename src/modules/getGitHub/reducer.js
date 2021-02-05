@@ -29,7 +29,7 @@ const getGithub = (state = initialState, action) => {
     case actions.GET_README_SUCCESS:
       return {
         ...state,
-        getReadmeStatus: reducerUtils.success(action.payload.data),
+        getReadmeStatus: reducerUtils.success(action.payload),
       };
     case actions.GET_README_FAIL:
       return {
