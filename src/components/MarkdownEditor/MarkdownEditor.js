@@ -6,8 +6,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getReadmeThunk } from '@modules/getGithub';
 
 const Wrapper = styled.div`
-  width: 100%;
-  height: 100%;
+  height: 30%;
+  width: 100%
+  background-color: white;
+  overflow: scroll;
 `;
 
 export default function MarkdownEditor({ url }) {
