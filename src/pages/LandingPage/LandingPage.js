@@ -12,26 +12,25 @@ const Wrapper = styled.div`
 `;
 
 const WrapContainer = styled.div`
-  max-width: 100rem;
+  max-width: 120rem;
   width: 100%;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 `;
 
-
-import C from '@components';
-
 export default function LandingPage() {
   return (
-    <Wrapper>
-      <WrapContainer>
-        <C.Header />
-    <div>
-      <C.MainView />
-    </div>
-      </WrapContainer>
-    </Wrapper>
+    <>
+      <Wrapper>
+        <WrapContainer>
+          <C.Header />
+          <C.MainView />
+          <C.SideIconBox />
+        </WrapContainer>
+      </Wrapper>
+    </>
   );
 }

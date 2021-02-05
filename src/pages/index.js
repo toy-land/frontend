@@ -4,8 +4,8 @@ import CreateToyPage from './CreateToyPage';
 import DeletePage from './DeletePage';
 
 export default {
-  DetailPage,
   LandingPage,
+  DetailPage,
   CreateToyPage,
   DeletePage,
 };
