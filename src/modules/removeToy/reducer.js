@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import { reducerUtils } from '@utils/asyncUtils';
 import * as actions from './actions';
 
@@ -18,11 +19,13 @@ const removeToy = (state = initialState, action) => {
         removeToyStatus: reducerUtils.loading(),
       };
     case actions.REMOVE_TOY_SUCCESS:
+      alert(`${action.payload.message}`);
       return {
         ...state,
-        removeToyStatus: reducerUtils.success(),
+        removeToyStatus: reducerUtils.success(action.payload),
       };
     case actions.REMOVE_TOY_FAIL:
+      alert(`${action.payload}`);
       return {
         ...state,
         removeToyStatus: reducerUtils.fail(action.payload),

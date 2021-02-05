@@ -6,11 +6,13 @@ import { getToysThunk } from '@modules/getToy';
 import { useDispatch, useSelector } from 'react-redux';
 import { getActive } from '@utils/getActive';
 import { emojiTheme } from '@constants/emojiTheme';
+import DeleteBox from '@components/DeleteBox/DeleteBox';
 
 const CardContainer = styled.div`
+  margin-top: 5rem;
   padding: 0 3rem;
   display: flex;
-  height: 50vh;
+  height: 70vh;
   flex-direction: column;
   flex-wrap: wrap;
   overflow: scroll;
@@ -31,6 +33,8 @@ function CardBox({ page }) {
     (state) => state.getToy.getToysStatus,
   );
   const [emojiKey, setEmojiKey] = useState(0);
+  const [removeToggle, setRemoveToggle] = useState(false);
+  const [toyId, setToyId] = useState(null);
 
   const getRandomKey = () => Math.floor(Math.random() * 10) % 5;
 
@@ -54,11 +58,16 @@ function CardBox({ page }) {
       const emoji = emojiTheme[emojiKey][active];
       return (
         <>
-          <Card toy={toy} emoji={emoji} active={active} />
+          <Card
+            toy={toy}
+            emoji={emoji}
+            active={active}
+            setRemoveToggle={setRemoveToggle}
+            setToyId={setToyId}
+          />
         </>
       );
     });
-    console.log(renderedToys);
     return renderedToys;
   };
 
@@ -73,9 +82,14 @@ function CardBox({ page }) {
         )}
         {!loading && success
            && (
-           <>
-             {loopToys(data)}
-           </>
+             <>
+               {removeToggle && (
+               <>
+                 <DeleteBox toyId={toyId} setRemoveToggle={setRemoveToggle} />
+               </>
+               )}
+               {loopToys(data)}
+             </>
            )}
       </CardList>
     </CardContainer>

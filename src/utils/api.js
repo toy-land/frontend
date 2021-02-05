@@ -14,9 +14,17 @@ export const getCategoriesApi = () => axios.get(`${apiUrl}/categories`);
 
 export const postToyApi = (data) => axios.post(`${apiUrl}/toys`, data);
 
-export const putToyApi = ({ id, data }) => axios.put(`${apiUrl}/toys/${id}`, data);
+export const putToyApi = ({ id, passwd }) => axios.put(`${apiUrl}/toys/${id}`, { passwd });
 
-export const deleteToyApi = ({ id }) => axios.delete(`${apiUrl}/toys/${id}`);
+export const deleteToyApi = ({ toyId, passwd }) => {
+  const head = {
+    headers: {
+      password: String(passwd),
+    },
+  };
+
+  return axios.delete(`${apiUrl}/toys/${toyId}`, head);
+};
 
 const readmeUrl = 'https://raw.githubusercontent.com';
 

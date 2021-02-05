@@ -1,21 +1,32 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React from 'react';
+import styled, { keyframes } from 'styled-components';
 
-import { useDispatch } from 'react-redux';
-
-import { removeToyThunk } from '@modules/removeToy';
-
-const Wrapper = styled.div`
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+const slideDown = keyframes`
+  from {
+    transform: translateY(-70px);
+  }
+  to {
+    transform: translateY(0px);
+  }
 `;
 
-const WrapContainer = styled.div`
-  width: 80%;
-  height: 80%;
+const ModalBackground = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+`;
+
+const ModalWrapper = styled.div`
+  animation-duration: 0.4s;
+  animation-timing-function: ease-in-out;
+  animation-name: ${slideDown};
+  animation-fill-mode: forwards;
+
+  position: absolute;
+  z-index: 100;
+  width: 50vw;
+  height: 50vh;
   background-color: #4aaff8;
   display: flex;
   flex-direction: column;
@@ -66,32 +77,27 @@ const WrapButton = styled.div`
   font-size: 2rem;
 `;
 
-export default function DeletePage({ match }) {
-  const [passwd, setPasswd] = useState('');
-  const { id } = match.pararm;
-
-  const dispatch = useDispatch();
-
-  function deleteToy() {
-    dispatch(removeToyThunk({ id, data: { password: passwd } }));
-  }
-
+function DeleteModal({
+  setPasswd, handleClick,
+}) {
+  // setPasswd, onClick
   return (
-    <Wrapper>
-      <WrapContainer>
+    <ModalBackground>
+      <ModalWrapper>
         <WrapFont>생성 시 사용했던 비밀번호 입력</WrapFont>
         <WrapFlex>
           <WrapInput
             type="password"
             placeholder="password"
-            value={passwd}
             onChange={(e) => setPasswd(e.target.value)}
           />
-          <WrapButton type="button" onClick={() => deleteToy()}>
+          <WrapButton type="button" onClick={handleClick}>
             확인
           </WrapButton>
         </WrapFlex>
-      </WrapContainer>
-    </Wrapper>
+      </ModalWrapper>
+    </ModalBackground>
   );
 }
+
+export default DeleteModal;

@@ -1,7 +1,7 @@
 import * as actions from './actions';
 
 const initialState = {
-  dragStatus: false,
+  isDragReady: false,
 };
 
 const dragToy = (state = initialState, action) => {
@@ -10,7 +10,7 @@ const dragToy = (state = initialState, action) => {
       return initialState;
     case actions.TOGGLE_DRAG:
       return {
-        dragStatus: !state.dragStatus,
+        isDragReady: !state.isDragReady,
       };
     default:
       return state;
