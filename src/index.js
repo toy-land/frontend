@@ -1,17 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import { BrowserRouter } from 'react-router-dom';
+import { applyMiddleware, createStore } from 'redux';
+import { ThemeProvider } from 'styled-components';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import logger from 'redux-logger';
+import ReduxThunk from 'redux-thunk';
+import { Provider } from 'react-redux';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
+import rootReducer from './modules';
+
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import theme from './styles/theme';
+
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(logger, ReduxThunk)),
+); // 여러개의 미들웨어를 적용 할 수 있습니다.
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  <DndProvider backend={HTML5Backend}>
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <BrowserRouter basename={process.env.BASE_PATH}>
+          <App />
+        </BrowserRouter>
+      </Provider>
+    </ThemeProvider>
+  </DndProvider>,
+  document.getElementById('root'),
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
