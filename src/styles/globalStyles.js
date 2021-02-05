@@ -134,4 +134,15 @@ export default createGlobalStyle`
         font-size: 62.5% !important;
         background-color: black;
     }
+    ::-webkit-scrollbar {
+        background-color:white;
+        width: 1.5rem;
+    }
+    ::-webkit-scrollbar-track {
+        background-color:white
+    }
+    ::-webkit-scrollbar-thumb {
+        background-color:#00b2fa
+        ;
+    }
 `;

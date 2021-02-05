@@ -11,8 +11,7 @@ export default function App() {
       <GlobalStyles />
       <Switch>
         <Route exact path="/" component={P.LandingPage} />
-        <Route exact path="/create" component={P.CreatePgae} />
-        <Route exact path="/detail:id" component={P.DetailPage} />
+        <Route exact path="/create" component={P.CreateToyPage} />
       </Switch>
     </>
   );
