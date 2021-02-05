@@ -189,6 +189,22 @@ const WrapSelector = styled.div`
 
 const ENTRY_STEP = 0;
 const EDIT_STEP = 1;
+const INIT_FORM = {
+  title: '',
+  description: '',
+  logoUrl: '',
+  githubIdentifier: '',
+  password: '',
+  serviceLink: '',
+  githubLink: '',
+  organizationId: 1,
+  category: '',
+  period: '',
+  contributors: '',
+  email: '',
+  techStackIds: '',
+  pushedAt: '',
+};
 
 export default function CreateToyPage({ history }) {
   const [skills, setSkills] = useState([]);
@@ -198,22 +214,7 @@ export default function CreateToyPage({ history }) {
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState();
 
-  const [form, setForm] = useState({
-    title: '',
-    description: '',
-    logoUrl: '',
-    githubIdentifier: '',
-    password: '',
-    serviceLink: '',
-    githubLink: '',
-    organizationId: 1,
-    category: '',
-    period: '',
-    contributors: '',
-    email: '',
-    techStackIds: '',
-    pushedAt: '',
-  });
+  const [form, setForm] = useState(INIT_FORM);
 
   const [step, setStep] = useState(ENTRY_STEP);
   const [url, setUrl] = useState('https://github.com/Yapp-17th/Web_2_Client');
@@ -249,7 +250,7 @@ export default function CreateToyPage({ history }) {
       const temp = { ...form, password };
       dispatch(writeToyThunk(temp));
       if (writeToyStatus.success === null) {
-        alert('실패하였습니다!');
+        alert('리포지토리가 이미 등록되어있거나 오류가 발생하였습니다!');
       }
       history.push('/');
       console.log(writeToyStatus);
@@ -304,6 +305,7 @@ export default function CreateToyPage({ history }) {
       setContributor([...contributor, ...contributorInfo]);
     }
   }, [getContributorStatus.data]);
+
   useEffect(() => {
     if (!getCategoriesStatus.loading && getCategoriesStatus.data) {
       setCategories(
@@ -359,7 +361,8 @@ export default function CreateToyPage({ history }) {
         category: category.value,
       });
     }
-  }, category);
+  }, [category]);
+
   return (
     <Wrapper>
       {
