@@ -45,6 +45,8 @@ const WrapContainer = styled.div`
   border-radius: 1.5rem;
   padding: 5rem 5rem 5rem 5rem;
   overflow: auto;
+  scroll-margin-top: 1em;
+
   ::-webkit-scrollbar {
     border-top-right-radius: 2rem;
     border-bottom-right-radius: 2rem;
@@ -54,7 +56,6 @@ const WrapContainer = styled.div`
     border-bottom-right-radius: 2rem;
   }
   ::-webkit-scrollbar-thumb {
-    border-top-right-radius: 2rem;
   }
   ::-webkit-scrollbar {
         background-color:white;
