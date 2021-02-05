@@ -56,6 +56,29 @@ const WrapContainer = styled.div`
   ::-webkit-scrollbar-thumb {
     border-top-right-radius: 2rem;
   }
+  position: relative;
+`;
+
+const Circle = styled.div`
+  position: fixed;
+  bottom: 5rem;
+  right: 5rem;
+  cursor: pointer;
+  border-radius: 100%;
+  background-color: white;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 6.2rem;
+  height: 6.2rem;
+  &:hover {
+    opacity: 0.8;
+  }
+`;
+
+const IconEmojiWrapper = styled.p`
+  font-size: 3rem;
 `;
 
 const WrapLeft = styled.div`
@@ -167,7 +190,7 @@ const WrapSelector = styled.div`
 const ENTRY_STEP = 0;
 const EDIT_STEP = 1;
 
-export default function CreateToyPage() {
+export default function CreateToyPage({ history }) {
   const [skills, setSkills] = useState([]);
   const [skill, setSkill] = useState();
   const [orgs, setOrgs] = useState([]);
@@ -176,20 +199,20 @@ export default function CreateToyPage() {
   const [category, setCategory] = useState();
 
   const [form, setForm] = useState({
-    title: undefined,
-    description: undefined,
-    logoUrl: undefined,
-    githubIdentifier: undefined,
-    password: undefined,
+    title: '',
+    description: '',
+    logoUrl: '',
+    githubIdentifier: '',
+    password: '',
     serviceLink: '',
-    githubLink: undefined,
+    githubLink: '',
     organizationId: 1,
-    category: undefined,
-    period: undefined,
-    contributors: undefined,
+    category: '',
+    period: '',
+    contributors: '',
     email: '',
-    techStackIds: undefined,
-    pushedAt: undefined,
+    techStackIds: '',
+    pushedAt: '',
   });
 
   const [step, setStep] = useState(ENTRY_STEP);
@@ -199,13 +222,14 @@ export default function CreateToyPage() {
   const { getGithubStatus, getContributorStatus } = useSelector(
     (state) => state.getGithub,
   );
-  useEffect(() => () => setStep(ENTRY_STEP), []);
 
   const {
     getCategoriesStatus,
     getSkillsStatus,
     getOrganizationsStatus,
   } = useSelector((state) => state.getSkills);
+
+  const { writeToyStatus } = useSelector((state) => state.writeToy);
 
   const dispatch = useDispatch();
 
@@ -217,6 +241,21 @@ export default function CreateToyPage() {
     dispatch(getOrganizationsThunk());
     dispatch(getCategoriesThunk());
     setStep(EDIT_STEP);
+  }
+
+  function handleSubmit() {
+    if (form.category && form.techStackIds) {
+      const password = prompt('비밀번호를 입력해주세요!');
+      const temp = { ...form, password };
+      dispatch(writeToyThunk(temp));
+      if (writeToyStatus.success === null) {
+        alert('실패하였습니다!');
+      }
+      history.push('/');
+      console.log(writeToyStatus);
+    } else {
+      alert('기술스택, 소속, 카테고리를 선택하세요!');
+    }
   }
 
   useEffect(() => {
@@ -240,7 +279,7 @@ export default function CreateToyPage() {
         // contributors: undefined,
         // email: undefined,
         // techStackIds: undefined,
-        pushedAt: getGithubStatus.data.pushed_at,
+        pushedAt: getGithubStatus.data.pushed_at.replace('Z', ''),
       });
     }
   }, [getGithubStatus.data]);
@@ -301,19 +340,26 @@ export default function CreateToyPage() {
   useEffect(() => {
     if (org) {
       setForm({ ...form, organizationId: org.value });
-    } else if (skill) {
+    }
+  }, [org]);
+
+  useEffect(() => {
+    if (skill) {
       setForm({
         ...form,
         techStackIds: skill.map((each) => each.value),
       });
-    } else if (category) {
+    }
+  }, [skill]);
+
+  useEffect(() => {
+    if (category) {
       setForm({
         ...form,
         category: category.value,
       });
     }
-  }, [org, skill, category]);
-
+  }, category);
   return (
     <Wrapper>
       {
@@ -328,6 +374,9 @@ export default function CreateToyPage() {
           [EDIT_STEP]: (
             <Wrapper>
               <WrapContainer>
+                <Circle onClick={handleSubmit}>
+                  <IconEmojiWrapper>✍️</IconEmojiWrapper>
+                </Circle>
                 <WrapLeft>
                   <WrapImage src={form?.logoUrl} />
                   <div>
