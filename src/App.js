@@ -12,6 +12,7 @@ export default function App() {
       <Switch>
         <Route exact path="/" component={P.LandingPage} />
         <Route exact path="/create" component={P.CreateToyPage} />
+        <Route path="/detail/:id" component={P.DetailPage} />
       </Switch>
     </>
   );
