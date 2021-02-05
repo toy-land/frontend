@@ -12,8 +12,9 @@ const Wrapper = styled.div`
 `;
 
 const WrapContainer = styled.div`
-  max-width: 100rem;
+  max-width: 120rem;
   width: 100%;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -27,6 +28,7 @@ export default function LandingPage() {
         <WrapContainer>
           <C.Header />
           <C.MainView />
+          <C.SideIconBox />
         </WrapContainer>
       </Wrapper>
     </>
