@@ -14,7 +14,10 @@ const CardContainer = styled.div`
   height: 70vh;
   flex-direction: column;
   flex-wrap: wrap;
-  overflow: hidden;
+  overflow: auto;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const CardList = styled.ul`
@@ -22,7 +25,6 @@ const CardList = styled.ul`
   flex-wrap: wrap;
   margin: 0 auto;
   align-content: flex-start;
-
 `;
 
 const CardBoxWrapper = styled.div`
@@ -79,20 +81,18 @@ function CardBox({ page }) {
 
   return (
     <CardBoxWrapper>
-
       <CardContainer>
         <CardList>
-          {!loading && success
-             && (
-               <>
-                 {removeToggle && (
-                 <>
-                   <DeleteBox toyId={toyId} setRemoveToggle={setRemoveToggle} />
-                 </>
-                 )}
-                 {loopToys(data)}
-               </>
-             )}
+          {!loading && success && (
+            <>
+              {removeToggle && (
+                <>
+                  <DeleteBox toyId={toyId} setRemoveToggle={setRemoveToggle} />
+                </>
+              )}
+              {loopToys(data)}
+            </>
+          )}
         </CardList>
       </CardContainer>
     </CardBoxWrapper>
