@@ -1,7 +1,9 @@
 import CardBox from '@components/CardBox';
 import { darken } from 'polished';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { initializeToys } from '@modules/getToy/actions';
 
 const CardArea = styled.div`
   display: flex;
@@ -33,18 +35,41 @@ const MoreButton = styled.button`
     font-weight: 700;
   }
 `;
+const TopText = styled.div`
+  z-index: 98;
+  width: inherit;
+  height: 3rem;
+  top: 1px;
+  font-size: 2rem;
+  font-family: 'S-CoreDream-3';
+  letter-spacing: 0.1rem;
+  padding: 0 8rem;
+  color: white;
+`;
 
 function MainView() {
+  const dispatch = useDispatch();
   const [page, setPage] = useState(0);
+
+  useEffect(() => {
+    dispatch(initializeToys());
+    setPage(0);
+  }, []);
+
   return (
-    <MainViewWrapper>
-      <CardArea>
-        <CardBox page={page} />
-      </CardArea>
-      <MoreButton onClick={() => { setPage(page + 1); }}>
-        <p>more</p>
-      </MoreButton>
-    </MainViewWrapper>
+    <>
+      <TopText>
+        최근 업로드 된 프로젝트
+      </TopText>
+      <MainViewWrapper>
+        <CardArea>
+          <CardBox page={page} />
+        </CardArea>
+        <MoreButton onClick={() => { setPage(page + 1); }}>
+          <p>more</p>
+        </MoreButton>
+      </MainViewWrapper>
+    </>
   );
 }
 
