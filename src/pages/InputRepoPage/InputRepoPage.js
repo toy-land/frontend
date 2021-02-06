@@ -71,8 +71,13 @@ export default function InputRepoPage({ url, setUrl, handleData }) {
         />
         <WrapButton
           type="button"
-          disabled={!url.includes('https://github.com/')}
-          onClick={() => handleData(url.replace('https://github.com', ''))}
+          onClick={() => {
+            if (!url.includes('https://github.com')) {
+              alert('잘못된 url');
+              return;
+            }
+            handleData(url.replace('https://github.com', ''));
+          }}
         >
           확인
         </WrapButton>

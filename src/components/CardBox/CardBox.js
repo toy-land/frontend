@@ -14,7 +14,7 @@ const CardContainer = styled.div`
   height: 70vh;
   flex-direction: column;
   flex-wrap: wrap;
-  overflow: scroll;
+  overflow: hidden;
 `;
 
 const CardList = styled.ul`
