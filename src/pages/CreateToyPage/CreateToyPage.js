@@ -265,11 +265,7 @@ export default function CreateToyPage({ history }) {
       const password = prompt('비밀번호를 입력해주세요!');
       const temp = { ...form, password };
       dispatch(writeToyThunk(temp));
-      if (writeToyStatus.success === null) {
-        alert('리포지토리가 이미 등록되어있거나 오류가 발생하였습니다!');
-      }
       history.push('/');
-      console.log(writeToyStatus);
     } else {
       alert('기술스택, 소속, 카테고리를 선택하세요!');
     }
