@@ -42,13 +42,17 @@ const WrapContainer = styled.div`
   ::-webkit-scrollbar {
     border-top-right-radius: 2rem;
     border-bottom-right-radius: 2rem;
+    background-color: white;
+    width: 1.5rem;
   }
   ::-webkit-scrollbar-track {
     border-top-right-radius: 2rem;
     border-bottom-right-radius: 2rem;
+    background-color: white;
   }
+
   ::-webkit-scrollbar-thumb {
-    border-top-right-radius: 2rem;
+    background-color: #00b2fa;
   }
   position: relative;
 `;
@@ -136,7 +140,7 @@ const WrapSelector = styled.div`
   justify-content: space-between;
   width: 100%;
   margin-top: 3rem;
-  margin-bottom: 3rem;
+  margin-bottom: 6rem;
   > div {
     width: 20rem;
     font-size: 1.5rem;

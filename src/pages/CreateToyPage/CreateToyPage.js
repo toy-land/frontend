@@ -45,28 +45,23 @@ const WrapContainer = styled.div`
   border-radius: 1.5rem;
   padding: 5rem 5rem 5rem 5rem;
   overflow: auto;
+  scroll-margin-top: 1em;
+
   ::-webkit-scrollbar {
     border-top-right-radius: 2rem;
     border-bottom-right-radius: 2rem;
+    background-color: white;
+    width: 1.5rem;
   }
   ::-webkit-scrollbar-track {
     border-top-right-radius: 2rem;
     border-bottom-right-radius: 2rem;
+    background-color: white;
   }
+
   ::-webkit-scrollbar-thumb {
-    border-top-right-radius: 2rem;
+    background-color: #00b2fa;
   }
-  ::-webkit-scrollbar {
-        background-color:white;
-        width: 1.5rem;
-    }
-    ::-webkit-scrollbar-track {
-        background-color:white
-    }
-    ::-webkit-scrollbar-thumb {
-        background-color:#00b2fa
-        ;
-    }
   position: relative;
 `;
 
@@ -108,10 +103,19 @@ const WrapRight = styled.div`
   height: auto;
 `;
 
-const WrapTitle = styled.div`
+const WrapTitle = styled.input`
   font-size: 5rem;
   font-family: S-CoreDream-6;
   margin: 2rem 0 2rem;
+  &:focus {
+    outline: none;
+  }
+  outline: none;
+  margin-bottom: 3rem;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: groove;
 `;
 
 const WrapImage = styled.img`
@@ -162,6 +166,7 @@ const WrapDescription = styled.textarea`
   border-right-style: hidden;
   border-left-style: hidden;
   border-bottom-style: groove;
+  margin-bottom: 3rem;
 `;
 
 const WrapEachText = styled.span`
@@ -191,7 +196,7 @@ const WrapSelector = styled.div`
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 2rem;
+  margin-bottom: 6rem;
   > div {
     width: 20rem;
     font-size: 1.5rem;
@@ -228,7 +233,7 @@ export default function CreateToyPage({ history }) {
   const [form, setForm] = useState(INIT_FORM);
 
   const [step, setStep] = useState(ENTRY_STEP);
-  const [url, setUrl] = useState('https://github.com/Yapp-17th/Web_2_Client');
+  const [url, setUrl] = useState('');
   const [contributor, setContributor] = useState([]);
 
   const { getGithubStatus, getContributorStatus } = useSelector(
@@ -260,11 +265,7 @@ export default function CreateToyPage({ history }) {
       const password = prompt('비밀번호를 입력해주세요!');
       const temp = { ...form, password };
       dispatch(writeToyThunk(temp));
-      if (writeToyStatus.success === null) {
-        alert('리포지토리가 이미 등록되어있거나 오류가 발생하였습니다!');
-      }
       history.push('/');
-      console.log(writeToyStatus);
     } else {
       alert('기술스택, 소속, 카테고리를 선택하세요!');
     }
@@ -306,12 +307,14 @@ export default function CreateToyPage({ history }) {
         })),
       });
 
-      setContributor(getContributorStatus.data.map((each) => ({
-        url: each.avatar_url,
-        id: each.id,
-        name: each.login,
-        github: each.html_url,
-      })));
+      setContributor(
+        getContributorStatus.data.map((each) => ({
+          url: each.avatar_url,
+          id: each.id,
+          name: each.login,
+          github: each.html_url,
+        })),
+      );
     }
   }, [getContributorStatus.data]);
 
@@ -417,7 +420,10 @@ export default function CreateToyPage({ history }) {
                   />
                 </WrapLeft>
                 <WrapRight>
-                  <WrapTitle>{form?.title}</WrapTitle>
+                  <WrapTitle
+                    value={form?.title}
+                    onChange={(e) => setForm({ ...form, title: e.target.value })}
+                  />
                   <WrapDescription
                     value={form.description}
                     onChange={(e) => setForm({ ...form, description: e.target.value })}
