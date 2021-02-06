@@ -16,6 +16,7 @@ const CardWrapper = styled.li`
   border-radius: 1.9rem;
   letter-spacing: 0.05rem;
   overflow: hidden;
+  cursor: pointer;
 
   ${(props) => props.isDragReady
     && css`
