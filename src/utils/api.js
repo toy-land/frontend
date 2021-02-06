@@ -26,12 +26,16 @@ export const deleteToyApi = ({ toyId, passwd }) => {
   return axios.delete(`${apiUrl}/toys/${toyId}`, head);
 };
 
+const config = {
+  headers: { Authorization: `token ${process.env.REACT_APP_FRONTEND_GITHUB_TOKEN}` },
+};
+
 const readmeUrl = 'https://raw.githubusercontent.com';
 
-export const getReadmeApi = (param) => axios.get(`${readmeUrl}${param}/master/README.md`);
+export const getReadmeApi = (param) => axios.get(`${readmeUrl}${param}/master/README.md`, config);
 
 const githubUrl = 'https://api.github.com/repos';
 
-export const getGithubApi = (param) => axios.get(`${githubUrl}${param}`);
+export const getGithubApi = (param) => axios.get(`${githubUrl}${param}`, config);
 
-export const getContributorApi = (param) => axios.get(`${githubUrl}${param}/contributors`);
+export const getContributorApi = (param) => axios.get(`${githubUrl}${param}/contributors`, config);
