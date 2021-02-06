@@ -8,7 +8,7 @@ const SideIconArea = styled.div`
   bottom: 0.5rem;
   right: -4rem;
   width: 9rem;
-  height: 13.5rem;
+  height: 14rem;
   background-color: transparent;
 `;
 
