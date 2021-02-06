@@ -10,19 +10,28 @@ const Title = styled.p`
 `;
 
 const Description = styled.p`
-  margin-top: 0.8rem;
-  font-size: 1.2rem;
+  margin-top: 1rem;
+  font-size: 1.4rem;
   letter-spacing: 0.15rem;
+  color: rgba(255,255,255,0.8);
+  font-family: 'S-CoreDream-3';
 `;
 
-const Category = styled.p``;
+const Category = styled.p`
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.9);
+  font-weight: 500;
+`;
 
-const Date = styled.p``;
+const Date = styled.p`
+  font-weight: 400;
+`;
 
 const ActiveCommentWrapper = styled.p`
   position: absolute;
-  bottom: 12px;
-  color: rgba(255,255,255,0.5);
+  bottom: 14px;
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.9);
   font-weight: 400;
 `;
 
@@ -37,12 +46,11 @@ const TopLine = styled.div`
   display: flex;
   font-weight: 300;
   justify-content: space-between;
-  color: rgba(255,255,255,0.5);
+  color: rgba(255,255,255,0.6);
 `;
 
 const MiddleLine = styled.div`
   margin-top: 2rem;
-  color: rgba(255,255,255,0.5);
 `;
 
 const EmojiWrapper = styled.p`

@@ -18,6 +18,8 @@ const initialState = {
 
 const getToy = (state = initialState, action) => {
   switch (action.type) {
+    case actions.INITIALIZE_TOYS:
+      return initialState;
     case actions.GET_TOY:
       return {
         ...state,
