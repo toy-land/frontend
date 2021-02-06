@@ -50,24 +50,18 @@ const WrapContainer = styled.div`
   ::-webkit-scrollbar {
     border-top-right-radius: 2rem;
     border-bottom-right-radius: 2rem;
+    background-color: white;
+    width: 1.5rem;
   }
   ::-webkit-scrollbar-track {
     border-top-right-radius: 2rem;
     border-bottom-right-radius: 2rem;
+    background-color: white;
   }
+
   ::-webkit-scrollbar-thumb {
+    background-color: #00b2fa;
   }
-  ::-webkit-scrollbar {
-        background-color:white;
-        width: 1.5rem;
-    }
-    ::-webkit-scrollbar-track {
-        background-color:white
-    }
-    ::-webkit-scrollbar-thumb {
-        background-color:#00b2fa
-        ;
-    }
   position: relative;
 `;
 
@@ -109,10 +103,19 @@ const WrapRight = styled.div`
   height: auto;
 `;
 
-const WrapTitle = styled.div`
+const WrapTitle = styled.input`
   font-size: 5rem;
   font-family: S-CoreDream-6;
   margin: 2rem 0 2rem;
+  &:focus {
+    outline: none;
+  }
+  outline: none;
+  margin-bottom: 3rem;
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: groove;
 `;
 
 const WrapImage = styled.img`
@@ -163,6 +166,7 @@ const WrapDescription = styled.textarea`
   border-right-style: hidden;
   border-left-style: hidden;
   border-bottom-style: groove;
+  margin-bottom: 3rem;
 `;
 
 const WrapEachText = styled.span`
@@ -307,12 +311,14 @@ export default function CreateToyPage({ history }) {
         })),
       });
 
-      setContributor(getContributorStatus.data.map((each) => ({
-        url: each.avatar_url,
-        id: each.id,
-        name: each.login,
-        github: each.html_url,
-      })));
+      setContributor(
+        getContributorStatus.data.map((each) => ({
+          url: each.avatar_url,
+          id: each.id,
+          name: each.login,
+          github: each.html_url,
+        })),
+      );
     }
   }, [getContributorStatus.data]);
 
@@ -418,7 +424,10 @@ export default function CreateToyPage({ history }) {
                   />
                 </WrapLeft>
                 <WrapRight>
-                  <WrapTitle>{form?.title}</WrapTitle>
+                  <WrapTitle
+                    value={form?.title}
+                    onChange={(e) => setForm({ ...form, title: e.target.value })}
+                  />
                   <WrapDescription
                     value={form.description}
                     onChange={(e) => setForm({ ...form, description: e.target.value })}
