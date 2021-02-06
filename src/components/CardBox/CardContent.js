@@ -12,7 +12,7 @@ const Title = styled.p`
 const Description = styled.div`
   width: 80%;
   height: 4rem;
-  overflow: scroll;
+  overflow: hidden;
   margin-top: 1rem;
   font-size: 1.4rem;
   letter-spacing: 0.15rem;

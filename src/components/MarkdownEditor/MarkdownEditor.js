@@ -9,7 +9,6 @@ const Wrapper = styled.div`
   height: 30%;
   width: 100%
   background-color: white;
-  overflow: scroll;
 `;
 
 export default function MarkdownEditor({ url }) {
