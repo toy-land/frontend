@@ -18,6 +18,6 @@ jobs:
 
       - name: Build the Docker image
         run: |
-          docker build --tag ${{secrets.DOCKER_USERNAME}}/toy-land:$(date +%s) .
+          docker build --tag ${{secrets.DOCKER_USERNAME}}/toy-land:latest .
       - name: Docker Push
-        run: docker push ${{secrets.DOCKER_USERNAME}}/toy-land
+        run: docker push ${{secrets.DOCKER_USERNAME}}/toy-land:latest
