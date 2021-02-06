@@ -9,7 +9,6 @@ import { emojiTheme } from '@constants/emojiTheme';
 import DeleteBox from '@components/DeleteBox/DeleteBox';
 
 const CardContainer = styled.div`
-  margin-top: 5rem;
   padding: 0 3rem;
   display: flex;
   height: 70vh;
@@ -24,6 +23,12 @@ const CardList = styled.ul`
   margin: 0 auto;
   align-content: flex-start;
 
+`;
+
+const CardBoxWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 0 3rem;
 `;
 
 function CardBox({ page }) {
@@ -72,27 +77,24 @@ function CardBox({ page }) {
   };
 
   return (
-    <CardContainer>
-      <CardList>
-        {loading
-        && (
-        <h>
-          로딩 중...
-        </h>
-        )}
-        {!loading && success
-           && (
-             <>
-               {removeToggle && (
+    <CardBoxWrapper>
+
+      <CardContainer>
+        <CardList>
+          {!loading && success
+             && (
                <>
-                 <DeleteBox toyId={toyId} setRemoveToggle={setRemoveToggle} />
+                 {removeToggle && (
+                 <>
+                   <DeleteBox toyId={toyId} setRemoveToggle={setRemoveToggle} />
+                 </>
+                 )}
+                 {loopToys(data)}
                </>
-               )}
-               {loopToys(data)}
-             </>
-           )}
-      </CardList>
-    </CardContainer>
+             )}
+        </CardList>
+      </CardContainer>
+    </CardBoxWrapper>
   );
 }
 
