@@ -12,7 +12,11 @@ export const getOrgnizationsApi = () => axios.get(`${apiUrl}/organizations`);
 
 export const getCategoriesApi = () => axios.get(`${apiUrl}/categories`);
 
-export const postToyApi = (data) => axios.post(`${apiUrl}/toys`, data);
+const config = {
+  headers: { Authorization: 'token 226bece4c9c4ff2e0ec6228db5ee4a2b6e87bc9a' },
+};
+
+export const postToyApi = (data) => axios.post(`${apiUrl}/toys`, data, config);
 
 export const putToyApi = ({ id, passwd }) => axios.put(`${apiUrl}/toys/${id}`, { passwd });
 
