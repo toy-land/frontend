@@ -12,8 +12,8 @@ const Title = styled.p`
 const Description = styled.div`
   width: 80%;
   height: 4rem;
-  overflow: scroll;
-  margin-top: 1rem;
+  overflow: hidden;
+  padding-top: 1rem;
   font-size: 1.4rem;
   letter-spacing: 0.15rem;
   color: rgba(255,255,255,0.8);
