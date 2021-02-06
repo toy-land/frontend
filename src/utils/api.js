@@ -32,7 +32,7 @@ const config = {
 
 const readmeUrl = 'https://raw.githubusercontent.com';
 
-export const getReadmeApi = (param) => axios.get(`${readmeUrl}${param}/master/README.md`, config);
+export const getReadmeApi = (param) => axios.get(`${readmeUrl}${param}/master/README.md`);
 
 const githubUrl = 'https://api.github.com/repos';
 
