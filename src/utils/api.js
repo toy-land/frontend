@@ -3,7 +3,7 @@ import axios from 'axios';
 const apiUrl = 'http://49.50.175.141:8080/api';
 
 const config = {
-  headers: { Authorization: `token ${process.env.FRONT_API_TOKEN}` },
+  headers: { Authorization: `token ${process.env.REACT_APP_FRONT_API_TOKEN}` },
 };
 
 export const getToyApi = (id) => axios.get(`${apiUrl}/toys/${id}`, config);
