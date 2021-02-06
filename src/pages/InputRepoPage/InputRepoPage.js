@@ -57,6 +57,7 @@ const WrapButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  user-select: none;
 `;
 
 export default function InputRepoPage({ url, setUrl, handleData }) {

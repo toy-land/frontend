@@ -27,7 +27,7 @@ const WrapLogo = styled.div`
 export default function Header() {
   return (
     <Wrapper>
-      <WrapLogo>토이랜드</WrapLogo>
+      <WrapLogo>토이랜드 🎡</WrapLogo>
     </Wrapper>
   );
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrag, DragPreviewImage } from 'react-dnd';
 import styled, { css } from 'styled-components';
@@ -15,6 +16,7 @@ const CardWrapper = styled.li`
   border-radius: 1.9rem;
   letter-spacing: 0.05rem;
   overflow: hidden;
+  cursor: pointer;
 
   ${(props) => props.isDragReady
     && css`
@@ -29,10 +31,11 @@ const CardWrapper = styled.li`
 `;
 
 function Card({
-  toy, emoji, active, setRemoveToggle, setToyId,
+  toy, emoji, active, setRemoveToggle, setToyId, id,
 }) {
   const isDragReady = useSelector((state) => state.dragToy.isDragReady);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [{ isDragging }, drag, preview] = useDrag({
     item: { type: ItemTypes.CARD },
@@ -65,7 +68,7 @@ function Card({
           </CardWrapper>
         )
         : (
-          <CardWrapper isDragReady={isDragReady}>
+          <CardWrapper onClick={() => history.push(`/detail/${id}`)} isDragReady={isDragReady}>
             <CardContent toy={toy} emoji={emoji} active={active} />
           </CardWrapper>
         )}
