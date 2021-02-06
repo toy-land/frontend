@@ -12,11 +12,7 @@ export const getOrgnizationsApi = () => axios.get(`${apiUrl}/organizations`);
 
 export const getCategoriesApi = () => axios.get(`${apiUrl}/categories`);
 
-const config = {
-  headers: { Authorization: 'token 226bece4c9c4ff2e0ec6228db5ee4a2b6e87bc9a' },
-};
-
-export const postToyApi = (data) => axios.post(`${apiUrl}/toys`, data, config);
+export const postToyApi = (data) => axios.post(`${apiUrl}/toys`, data);
 
 export const putToyApi = ({ id, passwd }) => axios.put(`${apiUrl}/toys/${id}`, { passwd });
 
@@ -30,13 +26,13 @@ export const deleteToyApi = ({ toyId, passwd }) => {
   return axios.delete(`${apiUrl}/toys/${toyId}`, head);
 };
 
-const config = {
-  headers: { Authorization: `token ${process.env.REACT_APP_FRONTEND_GITHUB_TOKEN}` },
-};
-
 const readmeUrl = 'https://raw.githubusercontent.com';
 
 export const getReadmeApi = (param) => axios.get(`${readmeUrl}${param}/master/README.md`);
+
+const config = {
+  headers: { Authorization: `token ${process.env.REACT_APP_FRONTEND_GITHUB_TOKEN}` },
+};
 
 const githubUrl = 'https://api.github.com/repos';
 
