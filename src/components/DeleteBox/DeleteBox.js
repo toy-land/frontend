@@ -13,7 +13,7 @@ function DeleteBox({ toyId, setRemoveToggle }) {
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    dispatch(removeToyThunk({ toyId, passwd }));
+    dispatch(removeToyThunk({ toyId, passwd }, setRemoveToggle));
   };
   const handleOverlay = () => {
     setRemoveToggle(false);

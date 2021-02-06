@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 import React from 'react';
 import styled from 'styled-components';
 
@@ -72,16 +71,8 @@ export default function InputRepoPage({ url, setUrl, handleData }) {
         />
         <WrapButton
           type="button"
-          onClick={() => {
-            if (!url.includes('https://github.com/')) {
-              alert('잘못된 url');
-              return;
-            }
-            if (url.slice(url.length - 1) !== '/') {
-              url += '/';
-            }
-            handleData(url.replace('https://github.com', ''));
-          }}
+          disabled={!url.includes('https://github.com/')}
+          onClick={() => handleData(url.replace('https://github.com', ''))}
         >
           확인
         </WrapButton>
