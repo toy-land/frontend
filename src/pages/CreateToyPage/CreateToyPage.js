@@ -233,7 +233,7 @@ export default function CreateToyPage({ history }) {
   const [form, setForm] = useState(INIT_FORM);
 
   const [step, setStep] = useState(ENTRY_STEP);
-  const [url, setUrl] = useState('https://github.com/Yapp-17th/Web_2_Client');
+  const [url, setUrl] = useState('');
   const [contributor, setContributor] = useState([]);
 
   const { getGithubStatus, getContributorStatus } = useSelector(
