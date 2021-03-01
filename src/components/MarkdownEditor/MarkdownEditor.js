@@ -7,7 +7,7 @@ import { getReadmeThunk } from '@modules/getGithub';
 
 const Wrapper = styled.div`
   height: 30%;
-  width: 100%
+  width: 100%;
   background-color: white;
 `;
 

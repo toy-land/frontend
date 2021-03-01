@@ -1,4 +1,3 @@
-// 하나 조회하기
 export const TOGGLE_DRAG = 'dragToy/TOGGLE_DRAG';
 export const INITIALIZE_DRAG = 'dragToy/INITIALIZE_DRAG';
 

@@ -3,6 +3,6 @@ import { createPromiseThunk } from '@utils/asyncUtils';
 import * as actions from './actions';
 
 export const writeToyThunk = createPromiseThunk(
-  actions.WRITE_TOY,
+  actions.writeToyAsyncAction.index,
   api.postToyApi,
 );

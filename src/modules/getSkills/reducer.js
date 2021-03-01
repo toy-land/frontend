@@ -1,4 +1,4 @@
-import { reducerUtils } from '@utils/asyncUtils';
+import { getAsyncState } from '@utils/asyncUtils';
 import * as actions from './actions';
 
 const initialState = {
@@ -27,47 +27,47 @@ const getSkill = (state = initialState, action) => {
     case actions.GET_SKILLS:
       return {
         ...state,
-        getSkillsStatus: reducerUtils.loading(),
+        getSkillsStatus: getAsyncState.loading(),
       };
     case actions.GET_SKILLS_SUCCESS:
       return {
         ...state,
-        getSkillsStatus: reducerUtils.success(action.payload),
+        getSkillsStatus: getAsyncState.success(action.payload),
       };
     case actions.GET_SKILLS_FAIL:
       return {
         ...state,
-        getSkillsStatus: reducerUtils.fail(action.payload),
+        getSkillsStatus: getAsyncState.fail(action.payload),
       };
     case actions.GET_ORGANIZATIONS:
       return {
         ...state,
-        getOrganizationsStatus: reducerUtils.loading(),
+        getOrganizationsStatus: getAsyncState.loading(),
       };
     case actions.GET_ORGANIZATIONS_SUCCESS:
       return {
         ...state,
-        getOrganizationsStatus: reducerUtils.success(action.payload),
+        getOrganizationsStatus: getAsyncState.success(action.payload),
       };
     case actions.GET_ORGANIZATIONS_FAIL:
       return {
         ...state,
-        getOrganizationsStatus: reducerUtils.fail(action.payload),
+        getOrganizationsStatus: getAsyncState.fail(action.payload),
       };
     case actions.GET_CATEGORIES:
       return {
         ...state,
-        getCategoriesStatus: reducerUtils.loading(),
+        getCategoriesStatus: getAsyncState.loading(),
       };
     case actions.GET_CATEGORIES_SUCCESS:
       return {
         ...state,
-        getCategoriesStatus: reducerUtils.success(action.payload),
+        getCategoriesStatus: getAsyncState.success(action.payload),
       };
     case actions.GET_CATEGORIES_FAIL:
       return {
         ...state,
-        getCategoriesStatus: reducerUtils.fail(action.payload),
+        getCategoriesStatus: getAsyncState.fail(action.payload),
       };
     default:
       return state;
