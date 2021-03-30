@@ -4,36 +4,35 @@ import * as actions from './actions';
 const initialState = {
   loading: false,
   data: {
-    readmeData: null,
-    githubData: null,
-    contributorData: null,
+    skillData: null,
+    organizationData: null,
+    categoryData: null,
   },
   error: null,
   success: null,
 };
 
-const getGithub = (state = initialState, action) => {
+const getOption = (state = initialState, action) => {
   switch (action.type) {
-    case actions.INITIALIZE_GITHUB:
+    case actions.INITIALIZE_OPTION:
       return initialState;
-    case actions.getGithubAsyncAction.request:
+    case actions.getOptionAsyncAction.request:
       return {
         ...state,
         ...getAsyncState.loading(state.data),
       };
-    case actions.getGithubAsyncAction.success:
+    case actions.getOptionAsyncAction.success:
       return {
         ...state,
         ...getAsyncState.success({ ...action.payload }),
       };
-    case actions.getGithubAsyncAction.failure:
+    case actions.getOptionAsyncAction.failure:
       return {
         ...state,
         ...getAsyncState.fail(action.payload, state.data),
       };
-    default:
-      return state;
+    default: return state;
   }
 };
 
-export default getGithub;
+export default getOption;

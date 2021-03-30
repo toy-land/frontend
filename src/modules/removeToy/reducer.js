@@ -1,5 +1,5 @@
 /* eslint-disable no-alert */
-import { reducerUtils } from '@utils/asyncUtils';
+import { getAsyncState } from '@utils/asyncUtils';
 import * as actions from './actions';
 
 const initialState = {
@@ -13,20 +13,20 @@ const initialState = {
 
 const removeToy = (state = initialState, action) => {
   switch (action.type) {
-    case actions.REMOVE_TOY:
+    case actions.removeToyAsyncAction.request:
       return {
         ...state,
-        removeToyStatus: reducerUtils.loading(),
+        removeToyStatus: getAsyncState.loading(),
       };
-    case actions.REMOVE_TOY_SUCCESS:
+    case actions.removeToyAsyncAction.success:
       return {
         ...state,
-        removeToyStatus: reducerUtils.success(action.payload),
+        removeToyStatus: getAsyncState.success(action.payload),
       };
-    case actions.REMOVE_TOY_FAIL:
+    case actions.removeToyAsyncAction.fail:
       return {
         ...state,
-        removeToyStatus: reducerUtils.fail(action.payload),
+        removeToyStatus: getAsyncState.fail(action.payload),
       };
     default:
       return state;

@@ -1,4 +1,4 @@
-import { reducerUtils } from '@utils/asyncUtils';
+import { getAsyncState } from '@utils/asyncUtils';
 import * as actions from './actions';
 
 const initialState = {
@@ -12,22 +12,20 @@ const initialState = {
 
 const writeToy = (state = initialState, action) => {
   switch (action.type) {
-    case actions.INITIALIZE_TOY:
-      return initialState;
-    case actions.WRITE_TOY:
+    case actions.writeToyAsyncAction.request:
       return {
         ...state,
-        writeToyStatus: reducerUtils.loading(),
+        writeToyStatus: getAsyncState.loading(),
       };
-    case actions.WRITE_TOY_SUCCESS:
+    case actions.writeToyAsyncAction.success:
       return {
         ...state,
-        writeToyStatus: reducerUtils.success(action.payload),
+        writeToyStatus: getAsyncState.success(action.payload),
       };
-    case actions.WRITE_TOY_FAIL:
+    case actions.writeToyAsyncAction.failure:
       return {
         ...state,
-        writeToyStatus: reducerUtils.fail(action.payload),
+        writeToyStatus: getAsyncState.fail(action.payload),
       };
     default:
       return state;

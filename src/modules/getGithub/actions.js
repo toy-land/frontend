@@ -1,12 +1,7 @@
-// 하나 조회하기
-export const GET_README = 'getReadme/GET_README';
-export const GET_README_SUCCESS = 'getReadme/GET_README_SUCCESS';
-export const GET_README_FAIL = 'getReadme/GET_README_FAIL';
+import { createAsyncAction } from '@utils/asyncUtils';
 
-export const GET_GITHUB = 'getGithub/GET_GITHUB';
-export const GET_GITHUB_SUCCESS = 'getGithub/GET_GITHUB_SUCCESS';
-export const GET_GITHUB_FAIL = 'getGithub/GET_GITHUB_FAIL';
-
-export const GET_CONTRIBUTOR = 'getContributor/GET_CONTRIBUTOR';
-export const GET_CONTRIBUTOR_SUCCESS = 'getContributor/GET_CONTRIBUTOR_SUCCESS';
-export const GET_CONTRIBUTOR_FAIL = 'getContributor/GET_CONTRIBUTOR_FAIL';
+export const INITIALIZE_GITHUB = 'getGithub/INITIALIZE_GITHUB';
+export const initializeGithub = () => ({
+  type: INITIALIZE_GITHUB,
+});
+export const getGithubAsyncAction = createAsyncAction('getGithub/GET_GITHUB');

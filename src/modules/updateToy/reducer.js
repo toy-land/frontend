@@ -1,4 +1,4 @@
-import { reducerUtils } from '@utils/asyncUtils';
+import { getAsyncState } from '@utils/asyncUtils';
 import * as actions from './actions';
 
 const initialState = {
@@ -17,17 +17,17 @@ const updateToy = (state = initialState, action) => {
     case actions.UPDATE_TOY:
       return {
         ...state,
-        updateToyStatus: reducerUtils.loading(),
+        updateToyStatus: getAsyncState.loading(),
       };
     case actions.UPDATE_TOY_SUCCESS:
       return {
         ...state,
-        updateToyStatus: reducerUtils.success(action.payload),
+        updateToyStatus: getAsyncState.success(action.payload),
       };
     case actions.UPDATE_TOY_FAIL:
       return {
         ...state,
-        updateToyStatus: reducerUtils.fail(action.payload),
+        updateToyStatus: getAsyncState.fail(action.payload),
       };
     default:
       return state;

@@ -1,4 +1,4 @@
-import { reducerUtils } from '@utils/asyncUtils';
+import { getAsyncState } from '@utils/asyncUtils';
 import * as actions from './actions';
 
 const initialState = {
@@ -20,22 +20,22 @@ const getToy = (state = initialState, action) => {
   switch (action.type) {
     case actions.INITIALIZE_TOYS:
       return initialState;
-    case actions.GET_TOY:
+    case actions.getToyAsyncAction.request:
       return {
         ...state,
-        getToyStatus: reducerUtils.loading(),
+        getToyStatus: getAsyncState.loading(),
       };
-    case actions.GET_TOY_SUCCESS:
+    case actions.getToyAsyncAction.success:
       return {
         ...state,
-        getToyStatus: reducerUtils.success(action.payload),
+        getToyStatus: getAsyncState.success(action.payload),
       };
-    case actions.GET_TOY_FAIL:
+    case actions.getToyAsyncAction.failure:
       return {
         ...state,
-        getToyStatus: reducerUtils.fail(action.payload),
+        getToyStatus: getAsyncState.fail(action.payload),
       };
-    case actions.GET_TOYS:
+    case actions.getToysAsyncAction.request:
       return {
         ...state,
         getToysStatus: {
@@ -43,7 +43,7 @@ const getToy = (state = initialState, action) => {
           loading: true,
         },
       };
-    case actions.GET_TOYS_SUCCESS:
+    case actions.getToysAsyncAction.success:
       return {
         ...state,
         getToysStatus: {
@@ -53,7 +53,7 @@ const getToy = (state = initialState, action) => {
           data: [...state.getToysStatus.data, ...action.payload],
         },
       };
-    case actions.GET_TOYS_FAIL:
+    case actions.getToysAsyncAction.failure:
       return {
         ...state,
         getToysStatus: {
