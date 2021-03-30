@@ -26,11 +26,11 @@ export const getAsyncState = {
     success: true,
     error: null,
   }),
-  fail: (payload) => ({
+  fail: (errorLog, prevState = null) => ({
     loading: false,
-    data: null,
+    data: prevState,
     success: null,
-    error: payload,
+    error: errorLog,
   }),
 };
 

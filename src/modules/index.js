@@ -5,10 +5,10 @@ import writeToy from '@modules/writeToy';
 import updateToy from '@modules/updateToy';
 import removeToy from '@modules/removeToy';
 import dragToy from '@modules/dragToy';
-import getSkills from '@modules/getSkills';
+import getOption from '@modules/getOption';
 
 const rootReducer = combineReducers({
-  getToy, writeToy, updateToy, removeToy, dragToy, getGithub, getSkills,
+  getToy, writeToy, updateToy, removeToy, dragToy, getGithub, getOption,
 });
 
 export default rootReducer;
