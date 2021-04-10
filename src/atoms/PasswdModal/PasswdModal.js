@@ -13,8 +13,10 @@ const slideDown = keyframes`
 const ModalBackground = styled.div`
   width: 100%;
   height: 100%;
+  position: absolute;
   display: flex;
   justify-content: center;
+  align-items: center;
 `;
 
 const ModalWrapper = styled.div`
@@ -26,7 +28,7 @@ const ModalWrapper = styled.div`
   position: absolute;
   z-index: 100;
   width: 50vw;
-  height: 50vh;
+  height: 60vh;
   background-color: #4aaff8;
   display: flex;
   flex-direction: column;
@@ -77,14 +79,14 @@ const WrapButton = styled.div`
   font-size: 2rem;
 `;
 
-function DeleteModal({
-  setPasswd, handleClick,
+function PasswdModal({
+  setPasswd, handleClick, modalText,
 }) {
   // setPasswd, onClick
   return (
     <ModalBackground>
       <ModalWrapper>
-        <WrapFont>생성 시 사용했던 비밀번호 입력</WrapFont>
+        <WrapFont>{modalText}</WrapFont>
         <WrapFlex>
           <WrapInput
             type="password"
@@ -100,4 +102,4 @@ function DeleteModal({
   );
 }
 
-export default DeleteModal;
+export default PasswdModal;
