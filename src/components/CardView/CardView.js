@@ -1,12 +1,12 @@
 /* eslint-disable no-plusplus */
 import React, { useEffect, useState } from 'react';
-import Card from '@components/CardBox/Card';
 import styled from 'styled-components';
 import { getToysThunk } from '@modules/getToy';
 import { useDispatch, useSelector } from 'react-redux';
 import { getActive } from '@utils/getActive';
 import { emojiTheme } from '@constants/emojiTheme';
-import DeleteBox from '@components/DeleteBox/DeleteBox';
+
+import C from '@components';
 
 const CardContainer = styled.div`
   padding: 0 3rem;
@@ -27,20 +27,20 @@ const CardList = styled.ul`
   align-content: flex-start;
 `;
 
-const CardBoxWrapper = styled.div`
+const CardViewWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 3rem;
 `;
 
-function CardBox({ page }) {
+function CardView({ page }) {
   const {
     data, loading, success, error,
   } = useSelector(
     (state) => state.getToy.getToysStatus,
   );
   const [emojiKey, setEmojiKey] = useState(0);
-  const [removeToggle, setRemoveToggle] = useState(false);
+  const [modalToggle, setModalToggle] = useState(false);
   const [toyId, setToyId] = useState(null);
 
   const getRandomKey = () => Math.floor(Math.random() * 10) % 5;
@@ -65,11 +65,11 @@ function CardBox({ page }) {
       const emoji = emojiTheme[emojiKey][active];
       return (
         <>
-          <Card
+          <C.Card
             toy={toy}
             emoji={emoji}
             active={active}
-            setRemoveToggle={setRemoveToggle}
+            setModalToggle={setModalToggle}
             setToyId={setToyId}
             id={toy.id}
           />
@@ -80,14 +80,14 @@ function CardBox({ page }) {
   };
 
   return (
-    <CardBoxWrapper>
+    <CardViewWrapper>
       <CardContainer>
         <CardList>
           {!loading && success && (
             <>
-              {removeToggle && (
+              {modalToggle && (
                 <>
-                  <DeleteBox toyId={toyId} setRemoveToggle={setRemoveToggle} />
+                  <C.DeleteBox toyId={toyId} setModalToggle={setModalToggle} />
                 </>
               )}
               {loopToys(data)}
@@ -95,8 +95,8 @@ function CardBox({ page }) {
           )}
         </CardList>
       </CardContainer>
-    </CardBoxWrapper>
+    </CardViewWrapper>
   );
 }
 
-export default CardBox;
+export default CardView;

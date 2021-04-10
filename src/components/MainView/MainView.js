@@ -1,9 +1,9 @@
-import CardBox from '@components/CardBox';
-import { darken } from 'polished';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { initializeToys } from '@modules/getToy/actions';
+
+import C from '@components';
 
 const CardArea = styled.div`
   display: flex;
@@ -63,7 +63,7 @@ function MainView() {
       </TopText>
       <MainViewWrapper>
         <CardArea>
-          <CardBox page={page} />
+          <C.CardView page={page} />
         </CardArea>
         <MoreButton onClick={() => { setPage(page + 1); }}>
           <p>more</p>
