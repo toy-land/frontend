@@ -10,7 +10,6 @@ function Trash() {
   const [{ isOver }, drop] = useDrop({
     accept: ItemTypes.CARD,
     drop: () => {
-      console.log('Card is dropped');
     },
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
@@ -25,9 +24,9 @@ function Trash() {
   return (
     <div>
       {isDragReady
-      && (
-      <Overlay handleOverlay={handleOverlay} />
-      )}
+        && (
+          <Overlay handleOverlay={handleOverlay} />
+        )}
       <SideIcon
         iconEmoji="🗑"
         handleClick={() => {

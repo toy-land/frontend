@@ -7,6 +7,7 @@ import { getActive } from '@utils/getActive';
 import { emojiTheme } from '@constants/emojiTheme';
 
 import C from '@components';
+import Card from './Card';
 
 const CardContainer = styled.div`
   padding: 0 3rem;
@@ -65,7 +66,7 @@ function CardView({ page }) {
       const emoji = emojiTheme[emojiKey][active];
       return (
         <>
-          <C.Card
+          <Card
             toy={toy}
             emoji={emoji}
             active={active}

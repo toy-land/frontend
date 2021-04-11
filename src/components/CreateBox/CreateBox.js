@@ -22,7 +22,7 @@ function CreateBox({ formData, setModalToggle }) {
       <PasswdModal
         setPasswd={setPasswd}
         handleClick={handleClick}
-        modalText="열람 비밀번호 설정"
+        modalText="비밀번호 설정"
       />
     </>
   );

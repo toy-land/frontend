@@ -3,9 +3,9 @@ import styled from 'styled-components';
 
 const OverlayBox = styled.div`
   background-color: rgba(0, 0, 0, 0.6);
-  width: 100vw;
-  height: 100vh;
-  top: 0px;
+  width: 120%;
+  height: 150%;
+  top: -10px;
   bottom: 0px;
   left: 0px;
   right: 0px;

@@ -25,7 +25,7 @@ const MoreButton = styled.button`
   width: 8rem;
   height: 5rem;
   bottom: -3rem;
-  right: 50%;
+  right: 48%;
   &:hover {
     opacity: 0.8;
   }
