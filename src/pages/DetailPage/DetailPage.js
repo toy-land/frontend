@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
+import Select from 'react-select';
 
-import { getToyThunk } from '@modules/getToy';
+import { getToyThunk, initializeToy } from '@modules/getToy';
 
 import {
   getGithubThunk, initializeGithub,
@@ -11,9 +11,7 @@ import {
 
 import C from '@components';
 
-import Select from 'react-select';
 import GitHub from '@assets/GitHub.png';
-import { initializeOption } from '@modules/getOption';
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -165,8 +163,8 @@ export default function DetailPage({ match }) {
   const { readmeData, contributorData } = githubDatas;
 
   useEffect(() => () => { // clean-up
-    dispatch(initializeGithub);
-    dispatch(initializeOption);
+    dispatch(initializeGithub());
+    dispatch(initializeToy());
   }, []);
 
   useEffect(() => {

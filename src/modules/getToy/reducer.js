@@ -18,8 +18,16 @@ const initialState = {
 
 const getToy = (state = initialState, action) => {
   switch (action.type) {
+    case actions.INITIALIZE_TOY:
+      return {
+        ...state,
+        getToyStatus: { ...initialState.getToyStatus },
+      };
     case actions.INITIALIZE_TOYS:
-      return initialState;
+      return {
+        ...state,
+        getToysStatus: { ...initialState.getToysStatus },
+      };
     case actions.getToyAsyncAction.request:
       return {
         ...state,

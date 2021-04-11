@@ -255,8 +255,8 @@ export default function CreateToyPage() {
   }
 
   useEffect(() => () => { // clean-up
-    dispatch(initializeGithub);
-    dispatch(initializeOption);
+    dispatch(initializeGithub());
+    dispatch(initializeOption());
   }, []);
 
   useEffect(() => {
@@ -267,7 +267,7 @@ export default function CreateToyPage() {
         description: githubData.description,
         logoUrl: githubData.owner.avatar_url,
         githubIdentifier: githubData.id,
-        githubLink: githubData.owner.html_url,
+        githubLink: githubData.html_url,
         organizationId: githubData?.organization?.id || 1,
         period: getActive(githubData.pushed_at),
         pushedAt: githubData.pushed_at.replace('Z', ''),
@@ -276,7 +276,6 @@ export default function CreateToyPage() {
           username: each.login,
         })),
       });
-
       setContributor(
         contributorData.map((each) => ({
           url: each.avatar_url,
