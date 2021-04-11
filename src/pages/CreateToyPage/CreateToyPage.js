@@ -201,7 +201,6 @@ const INIT_FORM = {
   description: '',
   logoUrl: '',
   githubIdentifier: '',
-  passwd: '',
   serviceLink: '',
   githubLink: '',
   organizationId: 1,
