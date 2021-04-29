@@ -8,10 +8,22 @@ const Wrapper = styled.div`
   background-color: white;
 `;
 
-export default function MarkdownEditor({ readmeData }) {
+const LoadingText = styled.h3`
+  font-size: 3rem;
+`;
+
+export default function MarkdownEditor({ getGithubLoading, readmeData }) {
   return (
-    <Wrapper>
-      <MDEditor.Markdown source={readmeData} />
-    </Wrapper>
+    <>
+      {getGithubLoading
+        ? (
+          <LoadingText>⏳</LoadingText>
+        )
+        : (
+          <Wrapper>
+            <MDEditor.Markdown source={readmeData} />
+          </Wrapper>
+        )}
+    </>
   );
 }

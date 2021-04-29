@@ -3,12 +3,12 @@ import styled from 'styled-components';
 
 const OverlayBox = styled.div`
   background-color: rgba(0, 0, 0, 0.6);
-  width: 120%;
-  height: 150%;
-  top: -10px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
+  width: 110%;
+  height: 110%;
+  top: -1rem;
+  bottom: 0rem;
+  left: 0rem;
+  right: 0rem;
   position: fixed;
   z-index: 99;
 `;

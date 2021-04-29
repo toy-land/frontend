@@ -102,7 +102,7 @@ const WrapGitHub = styled.img`
 const WrapContributor = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space;
+  justify-content: space-between;
 
   img {
     width: 4rem;
