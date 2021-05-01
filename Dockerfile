@@ -9,4 +9,5 @@ RUN yarn && yarn build
 FROM nginx:1.17-alpine
 COPY --from=build /usr/src/app/build /usr/share/nginx/html
 EXPOSE 80
+EXPOSE 443
 CMD ["nginx", "-g", "daemon off;"]
