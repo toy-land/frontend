@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import C from '@components';
-
 const Wrapper = styled.div`
   box-sizing: border-box;
   margin-top: 2vw;

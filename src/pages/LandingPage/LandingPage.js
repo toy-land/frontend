@@ -5,6 +5,7 @@ import styled, { keyframes } from 'styled-components';
 import LandingWallpaper from '@assets/images/LandingWallpaper.png';
 
 import C from '@components';
+import { useSelector } from 'react-redux';
 
 const slideUp = keyframes`
   from {
@@ -25,7 +26,6 @@ const slideDown = keyframes`
 `;
 
 const WallPaper = styled.div`
-  width: 100vw;
   height: 100vh;
   animation-duration: 0.3s;
   animation-timing-function: ease-in-out;
@@ -39,7 +39,6 @@ const WallPaper = styled.div`
 `;
 
 const Wrapper = styled.div`
-  width: 100vw;
   height: 110vh;
   display: flex;
   align-items: flex-start;
@@ -51,24 +50,23 @@ const WrapContainer = styled.div`
   max-width: 120rem;
   width: 100%;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 `;
 
 const Main = styled.div`
-  width: inherit;
   height: inherit;
+  margin-left: 1rem;
   animation-duration: 0.3s;
   animation-timing-function: ease-in-out;
   animation-name: ${slideUp};
   animation-fill-mode: forwards;
-
 `;
 
 export default function LandingPage() {
   const [isScroll, setIsScroll] = useState(false);
+
+  const { loading: getToysLoading, success: getToysSuccess } = useSelector(
+    (state) => state.getToy.getToysStatus,
+  );
 
   const onScroll = () => {
     if (document.documentElement.scrollTop > 3) {
@@ -92,7 +90,14 @@ export default function LandingPage() {
             ? (
               <Main>
                 <C.MainView />
-                <C.SideIconBox />
+                {
+                  ((!getToysLoading) && (getToysSuccess))
+                  && (
+                    <>
+                      <C.SideIconBox />
+                    </>
+                  )
+                }
               </Main>
             )
             : (

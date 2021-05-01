@@ -1,15 +1,17 @@
-import CardBox from './CardBox';
+import CardView from './CardView';
 import MainView from './MainView';
 import MarkdownEditor from './MarkdownEditor';
 import Header from './Header';
 import SideIconBox from './SideIconBox';
 import DeleteBox from './DeleteBox';
+import CreateBox from './CreateBox';
 
 export default {
-  CardBox,
+  CardView,
   MainView,
   MarkdownEditor,
   Header,
   SideIconBox,
   DeleteBox,
+  CreateBox,
 };

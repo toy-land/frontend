@@ -1,9 +1,9 @@
-import * as api from '@utils/api';
+import * as toyApi from '@utils/toyApi';
 import { createPromiseThunk } from '@utils/asyncUtils';
-import * as actions from './actions';
+import { getToyAsyncAction, getToysAsyncAction } from './actions';
 
-export const getToyThunk = createPromiseThunk(actions.GET_TOY, api.getToyApi);
+export const getToyThunk = createPromiseThunk(getToyAsyncAction, toyApi.getToyApi);
 export const getToysThunk = createPromiseThunk(
-  actions.GET_TOYS,
-  api.getToysApi,
+  getToysAsyncAction,
+  toyApi.getToysApi,
 );

@@ -1,8 +1,8 @@
-import * as api from '@utils/api';
+import * as toyApi from '@utils/toyApi';
 import { createPromiseThunk } from '@utils/asyncUtils';
-import * as actions from './actions';
+import { writeToyAsyncAction } from './actions';
 
 export const writeToyThunk = createPromiseThunk(
-  actions.WRITE_TOY,
-  api.postToyApi,
+  writeToyAsyncAction,
+  toyApi.postToyApi,
 );

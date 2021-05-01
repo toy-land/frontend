@@ -6,7 +6,7 @@ function Pencil() {
   const history = useHistory();
   return (
     <div>
-      <SideIcon iconEmoji="✏️" handleClick={() => history.push('/create')} />
+      <SideIcon iconEmoji="✏️" handleClick={() => history.push('/input')} />
     </div>
   );
 }

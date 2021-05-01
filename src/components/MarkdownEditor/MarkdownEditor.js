@@ -1,41 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import MDEditor from '@uiw/react-md-editor';
-
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
-import { getReadmeThunk } from '@modules/getGithub';
 
 const Wrapper = styled.div`
   height: 30%;
-  width: 100%
+  width: 100%;
   background-color: white;
 `;
 
-export default function MarkdownEditor({ url }) {
-  const [value, setValue] = useState('');
-  const { data, loading, error } = useSelector(
-    (state) => state.getGithub.getReadmeStatus,
-  );
-  const dispatch = useDispatch();
+const LoadingText = styled.h3`
+  font-size: 3rem;
+`;
 
-  useEffect(() => {
-    if (url) {
-      dispatch(getReadmeThunk(url.replace('https://github.com', '')));
-    }
-  }, [url]);
-
-  useEffect(() => {
-    console.log(error);
-  }, [error]);
-
-  useEffect(() => {
-    if (!loading && data) {
-      setValue(data);
-    }
-  }, [data]);
+export default function MarkdownEditor({ getGithubLoading, readmeData }) {
   return (
-    <Wrapper>
-      {!loading && data && <MDEditor.Markdown source={value} />}
-    </Wrapper>
+    <>
+      {getGithubLoading
+        ? (
+          <LoadingText>⏳</LoadingText>
+        )
+        : (
+          <Wrapper>
+            <MDEditor.Markdown source={readmeData} />
+          </Wrapper>
+        )}
+    </>
   );
 }
