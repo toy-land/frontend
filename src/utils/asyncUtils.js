@@ -1,16 +1,11 @@
-export const createPromiseThunk = (type, promiseCreator) => {
-  const [successType, failType] = [`${type}/SUCCESS`, `${type}/FAIL`];
-
-  // return thunk
-  return (param) => async (dispatch) => {
-    dispatch({ type, param });
-    try {
-      const payload = await promiseCreator(param);
-      dispatch({ type: successType, payload: payload.data }); // 성공
-    } catch (e) {
-      dispatch({ type: failType, payload: e.message }); // 실패
-    }
-  };
+export const createPromiseThunk = (asyncType, promiseCreator) => (param) => async (dispatch) => {
+  dispatch({ type: asyncType.request, payload: param });
+  try {
+    const payload = await promiseCreator(param);
+    dispatch({ type: asyncType.success, payload: payload.data }); // 성공
+  } catch (e) {
+    dispatch({ type: asyncType.failure, payload: e.message }); // 실패
+  }
 };
 
 export const getAsyncState = {
@@ -35,7 +30,6 @@ export const getAsyncState = {
 };
 
 export const createAsyncAction = (actionType) => ({
-  index: `${actionType}`,
   request: `${actionType}/REQUEST`,
   success: `${actionType}/SUCCESS`,
   failure: `${actionType}/FAILURE`,

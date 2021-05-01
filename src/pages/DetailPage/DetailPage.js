@@ -1,21 +1,16 @@
 import React, { useState, useEffect } from 'react';
-
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
+import Select from 'react-select';
 
-import { getToyThunk } from '@modules/getToy';
+import { getToyThunk, initializeToy } from '@modules/getToy';
 
 import {
-  getContributorThunk,
+  getGithubThunk, initializeGithub,
 } from '@modules/getGithub';
-
-import {
-  getSkillsThunk,
-} from '@modules/getSkills';
 
 import C from '@components';
 
-import Select from 'react-select';
 import GitHub from '@assets/GitHub.png';
 
 const Wrapper = styled.div`
@@ -27,7 +22,7 @@ const Wrapper = styled.div`
 `;
 
 const WrapContainer = styled.div`
-  max-width: 1200px;
+  max-width: 120rem;
   width: 65%;
   height: 65%;
   background-color: white;
@@ -107,7 +102,7 @@ const WrapGitHub = styled.img`
 const WrapContributor = styled.div`
   width: 100%;
   display: flex;
-  justify-conetent: space-between;
+  justify-content: space-between;
 
   img {
     width: 4rem;
@@ -154,38 +149,46 @@ export default function DetailPage({ match }) {
 
   const dispatch = useDispatch();
 
-  const { data, error, loading } = useSelector(
+  const { data: toyData, error: getToyError, loading: getToyLoading } = useSelector(
     (state) => state.getToy.getToyStatus,
   );
-  const { getContributorStatus } = useSelector((state) => state.getGithub);
+
+  const {
+    loading: getGithubLoading, data: githubDatas,
+    sucess: getGithubSucess, error: getGithubError,
+  } = useSelector(
+    (state) => state.getGithub,
+  );
+
+  const { readmeData, contributorData } = githubDatas;
+
+  useEffect(() => () => { // clean-up
+    dispatch(initializeGithub());
+    dispatch(initializeToy());
+  }, []);
 
   useEffect(() => {
-    console.log(error);
-  }, [error]);
-
-  useEffect(() => {
-    if (!getContributorStatus.loading && getContributorStatus.data) {
-      setContributor(getContributorStatus.data.map((each) => ({
+    if (!getGithubLoading && contributorData) {
+      setContributor(contributorData.map((each) => ({
         url: each.avatar_url,
         id: each.id,
         name: each.login,
         github: each.html_url,
       })));
     }
-  }, [getContributorStatus.data]);
+  }, [contributorData]);
 
   useEffect(() => {
-    if (!loading && data) {
+    if (!getToyLoading && toyData) {
       dispatch(
-        getContributorThunk(data.githubLink.replace('https://github.com', '')),
+        getGithubThunk(toyData.githubLink.replace('https://github.com', '')),
       );
-      setSkill(data.skills.map((each) => ({ value: each, label: each })));
+      setSkill(toyData.skills.map((each) => ({ value: each, label: each })));
     }
-  }, [data]);
+  }, [toyData]);
 
   useEffect(() => {
     dispatch(getToyThunk(id));
-    dispatch(getSkillsThunk());
   }, []);
 
   return (
@@ -193,7 +196,7 @@ export default function DetailPage({ match }) {
       <Wrapper>
         <WrapContainer>
           <WrapLeft>
-            <WrapImage src={data?.logoUrl} />
+            <WrapImage src={toyData?.logoUrl} />
             <div>
               <WrapUrl>
                 👤
@@ -203,42 +206,45 @@ export default function DetailPage({ match }) {
               <WrapContributor>
                 {contributor.map(
                   (each, i) => i < 3 && (
-                  <WrapGitHub
-                    onClick={() => window.open(each.github)}
-                    src={each.url}
-                    key={each.id}
-                    alt={each.name}
-                  />
+                    <WrapGitHub
+                      onClick={() => window.open(each.github)}
+                      src={each.url}
+                      key={each.id}
+                      alt={each.name}
+                    />
                   ),
                 )}
               </WrapContributor>
             </div>
             <WrapGitHub
-              onClick={() => window.open(data?.githubLink)}
+              onClick={() => window.open(toyData?.githubLink)}
               src={GitHub}
               alt="github-logo"
             />
           </WrapLeft>
           <WrapRight>
-            <WrapTitle>{data?.title}</WrapTitle>
-            <WrapDescription value={data?.description} />
+            <WrapTitle>{toyData?.title}</WrapTitle>
+            <WrapDescription value={toyData?.description} />
             <WrapSelector>
               <Select
                 isMulti
                 value={skill}
-                onChange={() => {}}
+                onChange={() => { }}
                 options={skill}
                 placeholder="기술스택"
                 isDisabled
               />
               <Select
-                onChange={() => {}}
-                placeholder={data?.organization}
+                onChange={() => { }}
+                placeholder={toyData?.organization}
                 isDisabled
               />
-              <Select placeholder={data?.category} isDisabled />
+              <Select placeholder={toyData?.category} isDisabled />
             </WrapSelector>
-            <C.MarkdownEditor url={data?.githubLink} />
+            <C.MarkdownEditor
+              getGithubLoading={getGithubLoading}
+              readmeData={readmeData}
+            />
           </WrapRight>
         </WrapContainer>
       </Wrapper>

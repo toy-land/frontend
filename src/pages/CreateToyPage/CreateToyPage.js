@@ -1,28 +1,21 @@
 import React, { useState, useEffect } from 'react';
-
-import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
+import Select from 'react-select';
+import styled from 'styled-components';
 
-import { writeToyThunk } from '@modules/writeToy';
+import { getActive } from '@utils/getActive';
+import GitHub from '@assets/GitHub.png';
 
 import {
-  getGithubThunk,
-  getContributorThunk,
-  getReadmeThunk,
+  initializeGithub,
 } from '@modules/getGithub';
 
 import {
-  getSkillsThunk,
-  getOrganizationsThunk,
-  getCategoriesThunk,
-} from '@modules/getSkills';
+  initializeOption,
+} from '@modules/getOption';
 
 import C from '@components';
-import P from '@pages';
-
-import { getActive } from '@utils/getActive';
-import Select from 'react-select';
-import GitHub from '@assets/GitHub.png';
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -33,7 +26,7 @@ const Wrapper = styled.div`
 `;
 
 const WrapContainer = styled.div`
-  max-width: 1200px;
+  max-width: 120rem;
   width: 65%;
   height: 65%;
   background-color: white;
@@ -146,7 +139,7 @@ const WrapGitHub = styled.img`
 const WrapContributor = styled.div`
   width: 100%;
   display: flex;
-  justify-conetent: space-between;
+  justify-content: space-between;
 
   img {
     width: 4rem;
@@ -203,112 +196,87 @@ const WrapSelector = styled.div`
   }
 `;
 
-const ENTRY_STEP = 0;
-const EDIT_STEP = 1;
 const INIT_FORM = {
   title: '',
   description: '',
   logoUrl: '',
   githubIdentifier: '',
-  password: '',
   serviceLink: '',
   githubLink: '',
   organizationId: 1,
   category: '',
   period: '',
-  contributors: '',
   email: '',
   techStackIds: '',
   pushedAt: '',
 };
 
-export default function CreateToyPage({ history }) {
+export default function CreateToyPage() {
+  const history = useHistory();
+  const dispatch = useDispatch();
+
   const [skills, setSkills] = useState([]);
   const [skill, setSkill] = useState();
   const [orgs, setOrgs] = useState([]);
   const [org, setOrg] = useState();
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState();
-
   const [form, setForm] = useState(INIT_FORM);
-
-  const [step, setStep] = useState(ENTRY_STEP);
-  const [url, setUrl] = useState('');
   const [contributor, setContributor] = useState([]);
-
-  const { getGithubStatus, getContributorStatus } = useSelector(
-    (state) => state.getGithub,
-  );
+  const [modalToggle, setModalToggle] = useState(false);
 
   const {
-    getCategoriesStatus,
-    getSkillsStatus,
-    getOrganizationsStatus,
-  } = useSelector((state) => state.getSkills);
+    loading: getGithubLoading, data: githubDatas,
+    success: getGithubSuccess, error: getGithubError,
+  } = useSelector(
+    (state) => state.getGithub,
+  );
+  const { readmeData, githubData, contributorData } = githubDatas;
 
-  const { writeToyStatus } = useSelector((state) => state.writeToy);
+  const {
+    loading: getOptionLoading, data: OptionDatas,
+    success: getOptionSuccess, error: getOptionError,
+  } = useSelector((state) => state.getOption);
 
-  const dispatch = useDispatch();
+  const {
+    loading: writeToyLoading, data: writeToyData,
+    success: writeToySuccess, error: writeToyError,
+  } = useSelector((state) => state.writeToy.writeToyStatus);
 
-  function handleData(getUrl) {
-    dispatch(getGithubThunk(getUrl));
-    dispatch(getContributorThunk(getUrl));
-    dispatch(getReadmeThunk(getUrl));
-    dispatch(getSkillsThunk());
-    dispatch(getOrganizationsThunk());
-    dispatch(getCategoriesThunk());
-    setStep(EDIT_STEP);
-  }
+  const { skillData, organizationData, categoryData } = OptionDatas;
 
   function handleSubmit() {
     if (form.category && form.techStackIds) {
-      const password = prompt('비밀번호를 입력해주세요!');
-      const temp = { ...form, password };
-      dispatch(writeToyThunk(temp));
-      history.push('/');
+      setModalToggle(true);
     } else {
       alert('기술스택, 소속, 카테고리를 선택하세요!');
     }
   }
 
-  useEffect(() => {
-    console.log(form);
-  }, [form]);
+  useEffect(() => () => { // clean-up
+    dispatch(initializeGithub());
+    dispatch(initializeOption());
+  }, []);
 
   useEffect(() => {
-    if (!getGithubStatus.loading && getGithubStatus.data) {
+    if (!getGithubLoading && getGithubSuccess) {
       setForm({
         ...form,
-        title: getGithubStatus.data.name,
-        description: getGithubStatus.data.description,
-        logoUrl: getGithubStatus.data.owner.avatar_url,
-        githubIdentifier: getGithubStatus.data.id,
-        // password: '0000',
-        // serviceLink: undefined,
-        githubLink: url,
-        organizationId: getGithubStatus.data?.organization?.id || 1,
-        // category: undefined,
-        period: getActive(getGithubStatus.data.pushed_at),
-        // contributors: undefined,
-        // email: undefined,
-        // techStackIds: undefined,
-        pushedAt: getGithubStatus.data.pushed_at.replace('Z', ''),
-      });
-    }
-  }, [getGithubStatus.data]);
-
-  useEffect(() => {
-    if (!getContributorStatus.loading && getContributorStatus.data) {
-      setForm({
-        ...form,
-        contributors: getContributorStatus.data.map((each) => ({
+        title: githubData.name,
+        description: githubData.description,
+        logoUrl: githubData.owner.avatar_url,
+        githubIdentifier: githubData.id,
+        githubLink: githubData.html_url,
+        organizationId: githubData?.organization?.id || 1,
+        period: getActive(githubData.pushed_at),
+        pushedAt: githubData.pushed_at.replace('Z', ''),
+        contributors: contributorData.map((each) => ({
           githubIdentifier: each.id,
           username: each.login,
         })),
       });
-
       setContributor(
-        getContributorStatus.data.map((each) => ({
+        contributorData.map((each) => ({
           url: each.avatar_url,
           id: each.id,
           name: each.login,
@@ -316,40 +284,38 @@ export default function CreateToyPage({ history }) {
         })),
       );
     }
-  }, [getContributorStatus.data]);
+
+    if (!getGithubLoading && getGithubError) {
+      alert(getGithubError);
+    }
+  }, [githubDatas]);
 
   useEffect(() => {
-    if (!getCategoriesStatus.loading && getCategoriesStatus.data) {
+    if (!getOptionLoading && getOptionSuccess) {
       setCategories(
-        getCategoriesStatus.data.reposponse.map((each) => ({
+        categoryData.reposponse.map((each) => ({
           value: each,
           label: each,
         })),
       );
-    }
-  }, [getCategoriesStatus.data]);
-
-  useEffect(() => {
-    if (!getSkillsStatus.loading && getSkillsStatus.data) {
       setSkills(
-        getSkillsStatus.data.data.map((each) => ({
+        skillData.data.map((each) => ({
           value: each.id,
           label: each.name,
         })),
       );
-    }
-  }, [getSkillsStatus.data]);
-
-  useEffect(() => {
-    if (!getOrganizationsStatus.loading && getOrganizationsStatus.data) {
       setOrgs(
-        getOrganizationsStatus.data.reposponse.map((each) => ({
+        organizationData.reposponse.map((each) => ({
           value: each.id,
           label: each.name,
         })),
       );
     }
-  }, [getOrganizationsStatus.data]);
+
+    if (!getOptionLoading && getOptionError) {
+      alert(getOptionError);
+    }
+  }, [OptionDatas]);
 
   useEffect(() => {
     if (org) {
@@ -375,100 +341,105 @@ export default function CreateToyPage({ history }) {
     }
   }, [category]);
 
+  useEffect(() => {
+    if (!writeToyLoading && writeToySuccess) {
+      alert('토이 생성 성공!');
+      history.push('/');
+    }
+    if (!writeToyLoading && writeToyError) {
+      alert(`${writeToyError}`);
+    }
+  }, [writeToyLoading]);
+
   return (
     <Wrapper>
-      {
-        {
-          [ENTRY_STEP]: (
-            <P.InputRepoPage
-              url={url}
-              setUrl={setUrl}
-              handleData={handleData}
-            />
-          ),
-          [EDIT_STEP]: (
-            <Wrapper>
-              <WrapContainer>
-                <Circle onClick={handleSubmit}>
-                  <IconEmojiWrapper>✍️</IconEmojiWrapper>
-                </Circle>
-                <WrapLeft>
-                  <WrapImage src={form?.logoUrl} />
-                  <div>
-                    <WrapUrl>
-                      👤
-                      {' '}
-                      <WrapMargin>Contributors</WrapMargin>
-                    </WrapUrl>
-                    <WrapContributor>
-                      {contributor.map(
-                        (each, i) => i < 3 && (
-                        <WrapGitHub
-                          onClick={() => window.open(each.github)}
-                          src={each.url}
-                          key={each.id}
-                          alt={each.name}
-                        />
-                        ),
-                      )}
-                    </WrapContributor>
-                  </div>
+      <WrapContainer>
+        <Circle onClick={handleSubmit}>
+          <IconEmojiWrapper>✍️</IconEmojiWrapper>
+        </Circle>
+        <WrapLeft>
+          <WrapImage src={form?.logoUrl} />
+          <div>
+            <WrapUrl>
+              👤
+              {' '}
+              <WrapMargin>Contributors</WrapMargin>
+            </WrapUrl>
+            <WrapContributor>
+              {contributor.map(
+                (each, i) => i < 3 && (
                   <WrapGitHub
-                    onClick={() => window.open(form?.githubLink)}
-                    src={GitHub}
-                    alt="github-logo"
+                    onClick={() => window.open(each.github)}
+                    src={each.url}
+                    key={each.id}
+                    alt={each.name}
                   />
-                </WrapLeft>
-                <WrapRight>
-                  <WrapTitle
-                    value={form?.title}
-                    onChange={(e) => setForm({ ...form, title: e.target.value })}
-                  />
-                  <WrapDescription
-                    value={form.description}
-                    onChange={(e) => setForm({ ...form, description: e.target.value })}
-                  />
-                  <div>
-                    <WrapEachText>E-Mail</WrapEachText>
-                    <WrapEachInput
-                      placeholder="유지보수 이메일을 받고싶으시다면 이메일 주소를 넣어주세요"
-                      value={form.email}
-                      onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    />
-                  </div>
-                  <div>
-                    <WrapEachText>URL</WrapEachText>
-                    <WrapEachInput
-                      placeholder="서비스가 배포된 URL을 넣어주세요"
-                      value={form.serviceLink}
-                      onChange={(e) => setForm({ ...form, serviceLink: e.target.value })}
-                    />
-                  </div>
-                  <WrapSelector>
-                    <Select
-                      isMulti
-                      onChange={setSkill}
-                      options={skills}
-                      placeholder="기술스택"
-                    />
-                    <Select
-                      onChange={setOrg}
-                      options={orgs}
-                      placeholder="소속"
-                    />
-                    <Select
-                      onChange={setCategory}
-                      options={categories}
-                      placeholder="카테고리"
-                    />
-                  </WrapSelector>
-                  <C.MarkdownEditor url={url} />
-                </WrapRight>
-              </WrapContainer>
-            </Wrapper>
-          ),
-        }[step]
-      }
+                ),
+              )}
+            </WrapContributor>
+          </div>
+          <WrapGitHub
+            onClick={() => window.open(form?.githubLink)}
+            src={GitHub}
+            alt="github-logo"
+          />
+        </WrapLeft>
+        <WrapRight>
+          <WrapTitle
+            value={form?.title}
+            onChange={(e) => setForm({ ...form, title: e.target.value })}
+          />
+          <WrapDescription
+            value={form.description}
+            onChange={(e) => setForm({ ...form, description: e.target.value })}
+          />
+          <div>
+            <WrapEachText>E-Mail</WrapEachText>
+            <WrapEachInput
+              placeholder="유지보수 이메일을 받고싶으시다면 이메일 주소를 넣어주세요"
+              value={form.email}
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
+            />
+          </div>
+          <div>
+            <WrapEachText>URL</WrapEachText>
+            <WrapEachInput
+              placeholder="서비스가 배포된 URL을 넣어주세요"
+              value={form.serviceLink}
+              onChange={(e) => setForm({ ...form, serviceLink: e.target.value })}
+            />
+          </div>
+          <WrapSelector>
+            <Select
+              isMulti
+              onChange={setSkill}
+              options={skills}
+              placeholder="기술스택"
+            />
+            <Select
+              onChange={setOrg}
+              options={orgs}
+              placeholder="소속"
+            />
+            <Select
+              onChange={setCategory}
+              options={categories}
+              placeholder="카테고리"
+            />
+          </WrapSelector>
+          <C.MarkdownEditor
+            readmeData={readmeData}
+            getGithubLoading={getGithubLoading}
+          />
+        </WrapRight>
+      </WrapContainer>
+      <>
+        {modalToggle && (
+          <>
+            <C.CreateBox formData={form} setModalToggle={setModalToggle} />
+          </>
+        )}
+      </>
     </Wrapper>
   );
 }

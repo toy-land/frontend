@@ -1,8 +1,20 @@
-import React from 'react';
+import { getGithubThunk } from '@modules/getGithub';
+import { getOptionThunk } from '@modules/getOption';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 import styled from 'styled-components';
 
+const Wrapper = styled.div`
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const WrapContainer = styled.div`
-  max-width: 1200px;
+  max-width: 120rem;
   width: 65%;
   height: 65%;
   background-color: white;
@@ -60,28 +72,65 @@ const WrapButton = styled.div`
   user-select: none;
 `;
 
-export default function InputRepoPage({ url, setUrl, handleData }) {
+export default function InputRepoPage() {
+  const [url, setUrl] = useState('');
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const {
+    loading: getGithubLoading, data: githubDatas,
+    success: getGithubSuccess, error: getGithubError,
+  } = useSelector(
+    (state) => state.getGithub,
+  );
+
+  const {
+    loading: getOptionLoading, data: OptionDatas,
+    success: getOptionSuccess, error: getOptionError,
+  } = useSelector((state) => state.getOption);
+
+  useEffect(() => {
+    if (!getGithubLoading && !getOptionLoading) {
+      if (getGithubError) {
+        alert(getGithubError);
+      }
+      if (getOptionError) {
+        alert(getOptionError);
+      }
+      if (getGithubSuccess && getOptionSuccess) {
+        history.push('/create');
+      }
+    }
+  }, [githubDatas, OptionDatas]);
+
+  function handleRepo(getUrl) {
+    dispatch(getGithubThunk(getUrl));
+    dispatch(getOptionThunk());
+  }
+
   return (
-    <WrapContainer>
-      <WrapFont>깃 레포지토리 주소를 입력해주세요.</WrapFont>
-      <WrapFlex>
-        <WrapInput
-          placeholder="https://"
-          onChange={(e) => setUrl(e.target.value)}
-        />
-        <WrapButton
-          type="button"
-          onClick={() => {
-            if (!url.includes('https://github.com')) {
-              alert('잘못된 url');
-              return;
-            }
-            handleData(url.replace('https://github.com', ''));
-          }}
-        >
-          확인
-        </WrapButton>
-      </WrapFlex>
-    </WrapContainer>
+    <Wrapper>
+      <WrapContainer>
+        <WrapFont>깃 레포지토리 주소를 입력해주세요.</WrapFont>
+        <WrapFlex>
+          <WrapInput
+            placeholder="https://"
+            onChange={(e) => setUrl(e.target.value)}
+          />
+          <WrapButton
+            type="button"
+            onClick={() => {
+              if (!url.includes('https://github.com')) {
+                alert('올바른 repository URL을 넣어주세요.');
+                return;
+              }
+              handleRepo(url.replace('https://github.com', ''));
+            }}
+          >
+            확인
+          </WrapButton>
+        </WrapFlex>
+      </WrapContainer>
+    </Wrapper>
   );
 }
