@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiUrl = 'http://49.50.161.45:8080/api';
+const apiUrl = 'https://49.50.161.45:8080/api';
 
 export const getToyApi = (id) => axios.get(`${apiUrl}/toys/${id}`);
 
