@@ -44,7 +44,7 @@ function CardView({ page }) {
   const [modalToggle, setModalToggle] = useState(false);
   const [toyId, setToyId] = useState(null);
 
-  const getRandomKey = () => Math.floor(Math.random() * 10) % 5;
+  const getRandomKey = () => Math.floor(Math.random() * 10) % 3;
 
   const dispatch = useDispatch();
 
