@@ -60,12 +60,12 @@ function Card({
       <DragPreviewImage src={trash} connect={preview} />
       {isDragReady
         ? (
-          <CardWrapper ref={drag} isDragging={isDragging} isDragReady={isDragReady}>
+          <CardWrapper key={id} ref={drag} isDragging={isDragging} isDragReady={isDragReady}>
             <CardContent toy={toy} emoji={emoji} active={active} />
           </CardWrapper>
         )
         : (
-          <CardWrapper onClick={() => history.push(`/detail/${id}`)} isDragReady={isDragReady}>
+          <CardWrapper key={id} onClick={() => history.push(`/detail/${id}`)} isDragReady={isDragReady}>
             <CardContent toy={toy} emoji={emoji} active={active} />
           </CardWrapper>
         )}

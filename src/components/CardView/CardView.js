@@ -1,7 +1,7 @@
 /* eslint-disable no-plusplus */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { getToysThunk } from '@modules/getToy';
+import { getMoreToysThunk, getToysThunk } from '@modules/getToy';
 import { useDispatch, useSelector } from 'react-redux';
 import { getActive } from '@utils/getActive';
 import { emojiTheme } from '@constants/emojiTheme';
@@ -9,12 +9,11 @@ import { emojiTheme } from '@constants/emojiTheme';
 import C from '@components';
 import Card from './Card';
 
-const CardContainer = styled.div`
+const CardContainer = styled.section`
   padding: 0 3rem;
   display: flex;
   height: 70vh;
   flex-direction: column;
-  flex-wrap: wrap;
   overflow: auto;
   ::-webkit-scrollbar {
     display: none;
@@ -35,10 +34,11 @@ const CardViewWrapper = styled.div`
 `;
 
 function CardView({ page }) {
-  const {
-    data, loading, success, error,
-  } = useSelector(
+  const getToysStatus = useSelector(
     (state) => state.getToy.getToysStatus,
+  );
+  const getMoreToysStatus = useSelector(
+    (state) => state.getToy.getMoreToysStatus,
   );
   const [emojiKey, setEmojiKey] = useState(0);
   const [modalToggle, setModalToggle] = useState(false);
@@ -56,7 +56,11 @@ function CardView({ page }) {
 
   // page 변경마다
   useEffect(() => {
-    dispatch(getToysThunk(page));
+    if (page > 0) {
+      dispatch(getMoreToysThunk(page));
+    } else {
+      dispatch(getToysThunk(page));
+    }
   }, [page]);
 
   const loopToys = (toys) => {
@@ -65,16 +69,15 @@ function CardView({ page }) {
       const active = getActive(pushedDate);
       const emoji = emojiTheme[emojiKey][active];
       return (
-        <>
-          <Card
-            toy={toy}
-            emoji={emoji}
-            active={active}
-            setModalToggle={setModalToggle}
-            setToyId={setToyId}
-            id={toy.id}
-          />
-        </>
+        <Card
+          key={toy.id}
+          toy={toy}
+          emoji={emoji}
+          active={active}
+          setModalToggle={setModalToggle}
+          setToyId={setToyId}
+          id={toy.id}
+        />
       );
     });
     return renderedToys;
@@ -84,14 +87,14 @@ function CardView({ page }) {
     <CardViewWrapper>
       <CardContainer>
         <CardList>
-          {!loading && success && (
+          {!getToysStatus.loading && getToysStatus.success && (
             <>
               {modalToggle && (
                 <>
                   <C.DeleteBox toyId={toyId} setModalToggle={setModalToggle} />
                 </>
               )}
-              {loopToys(data)}
+              {loopToys([...getToysStatus.data, ...getMoreToysStatus.data])}
             </>
           )}
         </CardList>
