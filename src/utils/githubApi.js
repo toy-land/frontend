@@ -1,7 +1,5 @@
+import { readmeUrl, repoUrl } from '@constants/url';
 import axios from 'axios';
-
-const readmeUrl = 'https://raw.githubusercontent.com';
-const repoUrl = 'https://api.github.com/repos';
 
 export const getReadmeApi = (param) => axios.get(`${readmeUrl}${param}/master/README.md`);
 
