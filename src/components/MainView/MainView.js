@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { initializeToys } from '@modules/getToy/actions';
 
 import C from '@components';
+import useInfinteScroll from '@hooks/useInfinteScroll';
 
 const CardArea = styled.div`
   display: flex;
@@ -16,25 +17,6 @@ const MainViewWrapper = styled.div`
   background-color: black;
 `;
 
-const MoreButton = styled.button`
-  position: absolute;
-  outline: 0;
-  border: none;
-  border-radius: 8rem;
-  cursor: pointer;
-  width: 8rem;
-  height: 5rem;
-  bottom: -3rem;
-  right: 48%;
-  &:hover {
-    opacity: 0.8;
-  }
-
-  p {
-    font-size: 1.5rem;
-    font-weight: 700;
-  }
-`;
 const TopText = styled.div`
   z-index: 98;
   width: inherit;
@@ -50,11 +32,21 @@ const TopText = styled.div`
 function MainView() {
   const dispatch = useDispatch();
   const [page, setPage] = useState(0);
+  const [target, setTarget] = useState(null);
 
   useEffect(() => {
     dispatch(initializeToys());
     setPage(0);
   }, []);
+
+  useInfinteScroll({
+    target,
+    onIntersect: ([{ isIntersecting }]) => {
+      if (isIntersecting) {
+        setPage(page + 1);
+      }
+    },
+  });
 
   return (
     <>
@@ -63,11 +55,8 @@ function MainView() {
       </TopText>
       <MainViewWrapper>
         <CardArea>
-          <C.CardView page={page} />
+          <C.CardView page={page} setTarget={setTarget} />
         </CardArea>
-        <MoreButton onClick={() => { setPage(page + 1); }}>
-          <p>more</p>
-        </MoreButton>
       </MainViewWrapper>
     </>
   );

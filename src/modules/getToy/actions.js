@@ -17,3 +17,6 @@ export const initializeToys = () => ({
 });
 
 export const getToysAsyncAction = createAsyncAction('getToy/GET_TOYS');
+
+// 여러개 추가 조회하기
+export const getMoreToysAsyncAction = createAsyncAction('getToy/GET_MORE_TOYS');
