@@ -13,7 +13,7 @@ const CardContainer = styled.section`
   padding: 0 3rem;
   display: flex;
   height: 70vh;
-  width: 90rem;
+  width: 100rem;
   flex-direction: column;
   overflow: auto;
   ::-webkit-scrollbar {
