@@ -25,6 +25,15 @@ const slideDown = keyframes`
   }
 `;
 
+const fadeIn = keyframes`
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+`;
+
 const WallPaper = styled.div`
   height: 100vh;
   animation-duration: 0.3s;
@@ -34,6 +43,7 @@ const WallPaper = styled.div`
   display: flex;
   justify-content: center;
   img {
+    animation: ${fadeIn} 2s;
     height: 85vh;
   }
 `;
