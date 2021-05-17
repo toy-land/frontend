@@ -5,6 +5,7 @@ import { getMoreToysThunk, getToysThunk } from '@modules/getToy';
 import { useDispatch, useSelector } from 'react-redux';
 import { getActive } from '@utils/getActive';
 import { emojiTheme } from '@constants/emojiTheme';
+import Spinner from '@utils/Spinner';
 
 import C from '@components';
 import Card from './Card';
@@ -13,6 +14,7 @@ const CardContainer = styled.section`
   padding: 0 3rem;
   display: flex;
   height: 70vh;
+  width: 90rem;
   flex-direction: column;
   overflow: auto;
   ::-webkit-scrollbar {
@@ -21,6 +23,7 @@ const CardContainer = styled.section`
 `;
 
 const CardList = styled.ul`
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   margin: 0 auto;
@@ -33,7 +36,7 @@ const CardViewWrapper = styled.div`
   padding: 0 3rem;
 `;
 
-function CardView({ page }) {
+function CardView({ page, setTarget }) {
   const getToysStatus = useSelector(
     (state) => state.getToy.getToysStatus,
   );
@@ -87,17 +90,30 @@ function CardView({ page }) {
     <CardViewWrapper>
       <CardContainer>
         <CardList>
-          {!getToysStatus.loading && getToysStatus.success && (
-            <>
-              {modalToggle && (
+          {getToysStatus.loading
+            ? (<Spinner />)
+            : (
+              getToysStatus.success && (
                 <>
-                  <C.DeleteBox toyId={toyId} setModalToggle={setModalToggle} />
+                  {modalToggle && (
+                    <>
+                      <C.DeleteBox toyId={toyId} setModalToggle={setModalToggle} />
+                    </>
+                  )}
+                  {loopToys([...getToysStatus.data, ...getMoreToysStatus.data])}
                 </>
-              )}
-              {loopToys([...getToysStatus.data, ...getMoreToysStatus.data])}
-            </>
-          )}
+              )
+            )}
         </CardList>
+        {getMoreToysStatus.loading
+          ? (
+            <Spinner />
+          ) : (
+            <div
+              ref={setTarget}
+              className="last-item"
+            />
+          )}
       </CardContainer>
     </CardViewWrapper>
   );
