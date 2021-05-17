@@ -2,11 +2,20 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrag, DragPreviewImage } from 'react-dnd';
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import { ItemTypes } from '@constants/itemType';
 import trash from '@assets/images/trash.png';
 import { toggleDrag } from '@modules/dragToy';
 import CardContent from './CardContent';
+
+const fadeIn = keyframes`
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+`;
 
 const CardWrapper = styled.li`
   flex-basis: 30%;
@@ -17,6 +26,7 @@ const CardWrapper = styled.li`
   letter-spacing: 0.05rem;
   overflow: hidden;
   cursor: pointer;
+  animation: ${fadeIn} 2s;
 
   ${(props) => props.isDragReady
     && css`
@@ -60,12 +70,12 @@ function Card({
       <DragPreviewImage src={trash} connect={preview} />
       {isDragReady
         ? (
-          <CardWrapper ref={drag} isDragging={isDragging} isDragReady={isDragReady}>
+          <CardWrapper key={id} ref={drag} isDragging={isDragging} isDragReady={isDragReady}>
             <CardContent toy={toy} emoji={emoji} active={active} />
           </CardWrapper>
         )
         : (
-          <CardWrapper onClick={() => history.push(`/detail/${id}`)} isDragReady={isDragReady}>
+          <CardWrapper key={id} onClick={() => history.push(`/detail/${id}`)} isDragReady={isDragReady}>
             <CardContent toy={toy} emoji={emoji} active={active} />
           </CardWrapper>
         )}

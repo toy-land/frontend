@@ -14,6 +14,12 @@ const initialState = {
     error: null,
     data: [],
   },
+  getMoreToysStatus: {
+    loading: false,
+    success: null,
+    error: null,
+    data: [],
+  },
 };
 
 const getToy = (state = initialState, action) => {
@@ -66,6 +72,34 @@ const getToy = (state = initialState, action) => {
         ...state,
         getToysStatus: {
           ...state.getToysStatus,
+          loading: false,
+          success: false,
+          error: action.payload,
+        },
+      };
+    case actions.getMoreToysAsyncAction.request:
+      return {
+        ...state,
+        getMoreToysStatus: {
+          ...state.getMoreToysStatus,
+          loading: true,
+        },
+      };
+    case actions.getMoreToysAsyncAction.success:
+      return {
+        ...state,
+        getMoreToysStatus: {
+          ...state.getMoreToysStatus,
+          loading: false,
+          success: true,
+          data: [...state.getMoreToysStatus.data, ...action.payload],
+        },
+      };
+    case actions.getMoreToysAsyncAction.failure:
+      return {
+        ...state,
+        getMoreToysStatus: {
+          ...state.getMoreToysStatus,
           loading: false,
           success: false,
           error: action.payload,
