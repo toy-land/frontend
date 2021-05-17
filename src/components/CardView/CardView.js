@@ -1,4 +1,3 @@
-/* eslint-disable no-plusplus */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { getMoreToysThunk, getToysThunk } from '@modules/getToy';
