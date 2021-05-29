@@ -3,7 +3,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import { ItemTypes } from '@constants/itemType';
-import Overlay from '@atoms/Overlay';
+import A from '@atoms';
 import SideIcon from './SideIcon';
 
 function Trash() {
@@ -25,7 +25,7 @@ function Trash() {
     <div>
       {isDragReady
         && (
-          <Overlay handleOverlay={handleOverlay} />
+          <A.Overlay handleOverlay={handleOverlay} />
         )}
       <SideIcon
         iconEmoji="🗑"

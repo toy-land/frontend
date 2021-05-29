@@ -13,15 +13,13 @@ const CardArea = styled.div`
 `;
 
 const MainViewWrapper = styled.div`
-  position: relative;
   background-color: black;
 `;
 
 const TopText = styled.div`
-  z-index: 98;
-  width: inherit;
+  position: sticky;
+  margin-top: 3.5rem;
   height: 3rem;
-  top: 1px;
   font-size: 2rem;
   font-family: 'S-CoreDream-3';
   letter-spacing: 0.1rem;
@@ -35,8 +33,10 @@ function MainView() {
   const [target, setTarget] = useState(null);
 
   useEffect(() => {
-    dispatch(initializeToys());
     setPage(0);
+    return () => {
+      dispatch(initializeToys());
+    };
   }, []);
 
   useInfinteScroll({

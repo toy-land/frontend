@@ -2,14 +2,18 @@ import React from 'react';
 import MDEditor from '@uiw/react-md-editor';
 import styled from 'styled-components';
 
+import A from '@atoms';
+
 const Wrapper = styled.div`
   height: 30%;
   width: 100%;
   background-color: white;
 `;
 
-const LoadingText = styled.h3`
-  font-size: 3rem;
+const SpinnerContainer = styled.div`
+  position:absolute;
+  top:50%;
+  left:50%;
 `;
 
 export default function MarkdownEditor({ getGithubLoading, readmeData }) {
@@ -17,7 +21,9 @@ export default function MarkdownEditor({ getGithubLoading, readmeData }) {
     <>
       {getGithubLoading
         ? (
-          <LoadingText>⏳</LoadingText>
+          <SpinnerContainer>
+            <A.Spinner />
+          </SpinnerContainer>
         )
         : (
           <Wrapper>
