@@ -8,7 +8,7 @@ import ReduxThunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import logger from 'redux-logger';
+// import logger from 'redux-logger';
 import rootReducer from './modules';
 
 import App from './App';
@@ -16,8 +16,8 @@ import theme from './styles/theme';
 
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(logger, ReduxThunk)),
-  // composeWithDevTools(applyMiddleware(ReduxThunk)),
+  // composeWithDevTools(applyMiddleware(logger, ReduxThunk)),
+  composeWithDevTools(applyMiddleware(ReduxThunk)),
 );
 
 ReactDOM.render(
