@@ -12,12 +12,14 @@ const initialState = {
     loading: false,
     success: null,
     error: null,
-    data: [],
   },
   getMoreToysStatus: {
     loading: false,
     success: null,
     error: null,
+  },
+  toyObject: {
+    isLastPage: false,
     data: [],
   },
 };
@@ -30,10 +32,7 @@ const getToy = (state = initialState, action) => {
         getToyStatus: { ...initialState.getToyStatus },
       };
     case actions.INITIALIZE_TOYS:
-      return {
-        ...state,
-        getToysStatus: { ...initialState.getToysStatus },
-      };
+      return initialState;
     case actions.getToyAsyncAction.request:
       return {
         ...state,
@@ -64,7 +63,11 @@ const getToy = (state = initialState, action) => {
           ...state.getToysStatus,
           loading: false,
           success: true,
-          data: [...state.getToysStatus.data, ...action.payload],
+        },
+        toyObject: {
+          ...state.toyObject,
+          isLastPage: action.payload.length === 0,
+          data: [...state.toyObject.data, ...action.payload],
         },
       };
     case actions.getToysAsyncAction.failure:
@@ -92,7 +95,11 @@ const getToy = (state = initialState, action) => {
           ...state.getMoreToysStatus,
           loading: false,
           success: true,
-          data: [...state.getMoreToysStatus.data, ...action.payload],
+        },
+        toyObject: {
+          ...state.toyObject,
+          isLastPage: action.payload.length === 0,
+          data: [...state.toyObject.data, ...action.payload],
         },
       };
     case actions.getMoreToysAsyncAction.failure:

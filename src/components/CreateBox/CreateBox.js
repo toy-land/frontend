@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import PasswdModal from '@atoms/PasswdModal';
-import Overlay from '@atoms/Overlay';
+import A from '@atoms';
 import { writeToyThunk } from '@modules/writeToy';
 
 function CreateBox({ formData, setModalToggle }) {
@@ -18,8 +17,8 @@ function CreateBox({ formData, setModalToggle }) {
 
   return (
     <>
-      <Overlay handleOverlay={handleOverlay} />
-      <PasswdModal
+      <A.Overlay handleOverlay={handleOverlay} />
+      <A.PasswdModal
         setPasswd={setPasswd}
         handleClick={handleClick}
         modalText="비밀번호 설정"

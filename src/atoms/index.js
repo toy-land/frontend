@@ -1,5 +1,8 @@
 import Tag from './Tag';
-import DeleteModal from './DeleteModal';
+import PasswdModal from './PasswdModal';
 import Overlay from './Overlay';
+import Spinner from './Spinner';
 
-export default { Tag, DeleteModal, Overlay };
+export default {
+  Tag, PasswdModal, Overlay, Spinner,
+};

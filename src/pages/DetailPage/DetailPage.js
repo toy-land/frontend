@@ -23,8 +23,8 @@ const Wrapper = styled.div`
 
 const WrapContainer = styled.div`
   max-width: 120rem;
-  width: 65%;
-  height: 65%;
+  width: 80%;
+  height: 80%;
   background-color: white;
   display: flex;
   flex-direction: row;

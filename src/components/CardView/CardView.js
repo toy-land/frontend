@@ -4,8 +4,8 @@ import { getMoreToysThunk, getToysThunk } from '@modules/getToy';
 import { useDispatch, useSelector } from 'react-redux';
 import { getActive } from '@utils/getActive';
 import { emojiTheme } from '@constants/emojiTheme';
-import Spinner from '@utils/Spinner';
 
+import A from '@atoms';
 import C from '@components';
 import Card from './Card';
 
@@ -19,6 +19,12 @@ const CardContainer = styled.section`
   ::-webkit-scrollbar {
     display: none;
   }
+`;
+
+const SpinnerContainer = styled.div`
+  position:absolute;
+  bottom: ${(props) => props.y}%;
+  left:50%;
 `;
 
 const CardList = styled.ul`
@@ -41,6 +47,9 @@ function CardView({ page, setTarget }) {
   );
   const getMoreToysStatus = useSelector(
     (state) => state.getToy.getMoreToysStatus,
+  );
+  const toyObject = useSelector(
+    (state) => state.getToy.toyObject,
   );
   const [emojiKey, setEmojiKey] = useState(0);
   const [modalToggle, setModalToggle] = useState(false);
@@ -90,7 +99,11 @@ function CardView({ page, setTarget }) {
       <CardContainer>
         <CardList>
           {getToysStatus.loading
-            ? (<Spinner />)
+            ? (
+              <SpinnerContainer y="50">
+                <A.Spinner />
+              </SpinnerContainer>
+            )
             : (
               getToysStatus.success && (
                 <>
@@ -99,19 +112,24 @@ function CardView({ page, setTarget }) {
                       <C.DeleteBox toyId={toyId} setModalToggle={setModalToggle} />
                     </>
                   )}
-                  {loopToys([...getToysStatus.data, ...getMoreToysStatus.data])}
+                  {loopToys(toyObject.data)}
                 </>
               )
             )}
         </CardList>
-        {getMoreToysStatus.loading
-          ? (
-            <Spinner />
-          ) : (
-            <div
-              ref={setTarget}
-              className="last-item"
-            />
+        {(getToysStatus.success && !toyObject.isLastPage)
+          && (
+            getMoreToysStatus.loading
+              ? (
+                <SpinnerContainer y="5">
+                  <A.Spinner />
+                </SpinnerContainer>
+              ) : (
+                <div
+                  ref={setTarget}
+                  className="last-item"
+                />
+              )
           )}
       </CardContainer>
     </CardViewWrapper>

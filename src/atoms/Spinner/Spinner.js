@@ -16,15 +16,11 @@ const Spinner = () => (
 
 const StyledSpinner = styled.svg`
   animation: rotate 1s linear infinite;
-  margin: -25px 0 0 -25px;
   width: 60px;
   height: 60px;
-  position: absolute;
-  right: 48%;
-  bottom: 0%;
 
   & .path {
-    stroke: white;
+    stroke: #00b0ff;
     stroke-linecap: round;
     animation: dash 1.5s ease-in-out infinite;
   }
