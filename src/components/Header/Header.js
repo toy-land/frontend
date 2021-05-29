@@ -1,19 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
-  box-sizing: border-box;
-  margin-top: 2vw;
+const Wrapper = styled.header`
+  position: sticky;
+  top: 0;
+  margin-top: 2rem;
   padding: 0 2rem;
-  width: calc(100% - 3rem);
   max-width: 120rem;
-  height: 8vw;
+  height: 10rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 
-const WrapLogo = styled.div`
+const WrapLogo = styled.h2`
   display: flex;
   justify-content: center;
   align-items: center;

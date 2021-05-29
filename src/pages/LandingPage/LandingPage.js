@@ -35,31 +35,31 @@ const fadeIn = keyframes`
 `;
 
 const WallPaper = styled.div`
-  height: 100vh;
+  position: relative;
+  z-index: -1;
+  display: flex;
+  justify-content: center;
   animation-duration: 0.3s;
   animation-timing-function: ease-in-out;
   animation-name: ${slideDown};
   animation-fill-mode: forwards;
-  display: flex;
-  justify-content: center;
   img {
     animation: ${fadeIn} 2s;
-    height: 85vh;
+    width:100%;
   }
 `;
 
 const Wrapper = styled.div`
-  height: 110vh;
   display: flex;
   align-items: flex-start;
   justify-content: center;
+  height: 110vh;
   opacity: 1;
 `;
 
 const WrapContainer = styled.div`
   max-width: 120rem;
   width: 100%;
-  position: relative;
 `;
 
 const Main = styled.div`
@@ -113,7 +113,7 @@ export default function LandingPage() {
             : (
               <>
                 <WallPaper active>
-                  <img src={LandingWallpaper} />
+                  <img src={LandingWallpaper} alt="welcome wallpaper" />
                 </WallPaper>
               </>
             )}
