@@ -1,21 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { getMoreToysThunk, getToysThunk } from '@modules/getToy';
+import { getToysThunk, initializeToys } from '@modules/getToy';
 import { useDispatch, useSelector } from 'react-redux';
 import { getActive } from '@utils/getActive';
 import { emojiTheme } from '@constants/emojiTheme';
 
 import A from '@atoms';
 import C from '@components';
+import useIntersectionObserver from '@hooks/useIntersectionObserver';
+import { respondTo } from '@utils/mixin';
 import Card from './Card';
 
 const CardContainer = styled.section`
   padding: 0 3rem;
   display: flex;
+  align-items: center;
   height: 70vh;
-  width: 100rem;
   flex-direction: column;
   overflow: auto;
+  width: 100rem;
+  ${respondTo.mobile`
+      width: 90%;
+  `}
   ::-webkit-scrollbar {
     display: none;
   }
@@ -41,38 +47,35 @@ const CardViewWrapper = styled.div`
   padding: 0 3rem;
 `;
 
-function CardView({ page, setTarget }) {
+function CardView() {
+  const [page, setPage] = useState(0);
+  const [target, setTarget] = useState(null);
+  const dispatch = useDispatch();
   const getToysStatus = useSelector(
     (state) => state.getToy.getToysStatus,
-  );
-  const getMoreToysStatus = useSelector(
-    (state) => state.getToy.getMoreToysStatus,
-  );
-  const toyObject = useSelector(
-    (state) => state.getToy.toyObject,
   );
   const [emojiKey, setEmojiKey] = useState(0);
   const [modalToggle, setModalToggle] = useState(false);
   const [toyId, setToyId] = useState(null);
 
-  const getRandomKey = () => Math.floor(Math.random() * 10) % 3;
+  useIntersectionObserver({
+    target,
+    onIntersect: ([{ isIntersecting }]) => {
+      if (isIntersecting && !getToysStatus.loading) {
+        dispatch(getToysThunk(page));
+        setPage(page + 1);
+      }
+    },
+  });
 
-  const dispatch = useDispatch();
+  const getRandomKey = () => Math.floor(Math.random() * 10) % 3;
 
   // 컴포넌트 마운트에만
   useEffect(() => {
     const randKey = getRandomKey();
     setEmojiKey(randKey);
+    return () => dispatch(initializeToys());
   }, []);
-
-  // page 변경마다
-  useEffect(() => {
-    if (page > 0) {
-      dispatch(getMoreToysThunk(page));
-    } else {
-      dispatch(getToysThunk(page));
-    }
-  }, [page]);
 
   const loopToys = (toys) => {
     const renderedToys = toys.map((toy) => {
@@ -97,39 +100,36 @@ function CardView({ page, setTarget }) {
   return (
     <CardViewWrapper>
       <CardContainer>
-        <CardList>
-          {getToysStatus.loading
-            ? (
+        {getToysStatus.loading && (
+          page > 1 ? (
+            <SpinnerContainer y="0">
+              <A.Spinner />
+            </SpinnerContainer>
+          )
+            : (
               <SpinnerContainer y="50">
                 <A.Spinner />
               </SpinnerContainer>
             )
-            : (
-              getToysStatus.success && (
+        )}
+        <CardList>
+          {getToysStatus.success && (
+            <>
+              {modalToggle && (
                 <>
-                  {modalToggle && (
-                    <>
-                      <C.DeleteBox toyId={toyId} setModalToggle={setModalToggle} />
-                    </>
-                  )}
-                  {loopToys(toyObject.data)}
+                  <C.DeleteBox toyId={toyId} setModalToggle={setModalToggle} />
                 </>
-              )
-            )}
+              )}
+              {loopToys(getToysStatus.data)}
+            </>
+          )}
         </CardList>
-        {(getToysStatus.success && !toyObject.isLastPage)
+        {(!getToysStatus.isLastPage)
           && (
-            getMoreToysStatus.loading
-              ? (
-                <SpinnerContainer y="5">
-                  <A.Spinner />
-                </SpinnerContainer>
-              ) : (
-                <div
-                  ref={setTarget}
-                  className="last-item"
-                />
-              )
+            <div
+              ref={setTarget}
+              className="last-item"
+            />
           )}
       </CardContainer>
     </CardViewWrapper>
