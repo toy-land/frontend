@@ -16,6 +16,7 @@ import {
 } from '@modules/getOption';
 
 import C from '@components';
+import { respondTo } from '@utils/mixin';
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -32,7 +33,6 @@ const WrapContainer = styled.div`
   background-color: white;
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
   align-items: flex-start;
   flex-wrap: wrap;
   border-radius: 1.5rem;
@@ -81,6 +81,10 @@ const IconEmojiWrapper = styled.p`
 `;
 
 const WrapLeft = styled.div`
+  flex:0.3;
+  ${respondTo.mobile`
+  flex:1;
+  `}
   padding: 2rem 0 2rem;
   width: 20rem;
   height: 40rem;
@@ -91,6 +95,10 @@ const WrapLeft = styled.div`
 `;
 
 const WrapRight = styled.div`
+  flex:0.7;
+  ${respondTo.mobile`
+    flex:1;
+  `}
   padding: 2rem 0 2rem;
   max-width: 70rem;
   height: auto;
@@ -125,7 +133,6 @@ const WrapUrl = styled.div`
 `;
 
 const WrapMargin = styled.div`
-  margin-left: 1rem;
   font-size: 1.5em;
   font-family: S-CoreDream-3;
 `;
@@ -191,7 +198,8 @@ const WrapSelector = styled.div`
   width: 100%;
   margin-bottom: 6rem;
   > div {
-    width: 20rem;
+    flex:1;
+    padding: 1%;
     font-size: 1.5rem;
   }
 `;

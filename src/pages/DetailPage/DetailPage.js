@@ -12,6 +12,7 @@ import {
 import C from '@components';
 
 import GitHub from '@assets/GitHub.png';
+import { respondTo } from '@utils/mixin';
 
 const Wrapper = styled.div`
   width: 100vw;
@@ -21,18 +22,17 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-const WrapContainer = styled.div`
+const WrapContainer = styled.section`
   max-width: 120rem;
   width: 80%;
   height: 80%;
   background-color: white;
   display: flex;
+  justify-content: center;
+  align-items: start;
   flex-direction: row;
-  justify-content: space-around;
-  align-items: flex-start;
-  flex-wrap: wrap;
   border-radius: 1.5rem;
-  padding: 5rem 5rem 5rem 5rem;
+  padding: 5rem;
   overflow: auto;
   ::-webkit-scrollbar {
     border-top-right-radius: 2rem;
@@ -49,13 +49,25 @@ const WrapContainer = styled.div`
   ::-webkit-scrollbar-thumb {
     background-color: #00b2fa;
   }
-  position: relative;
+  ${respondTo.mobile`
+    width: 95%;
+    padding: 5rem 2rem;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+  `}
 `;
 
 const WrapLeft = styled.div`
-  padding: 2rem 0 2rem;
+  flex:0.3;
+  position: sticky;
+  ${respondTo.mobile`
+    position: static;
+    flex:1;
+  `}
+  top: 0;
+  padding-top: 2rem;
   width: 20rem;
-  height: 40rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -63,13 +75,22 @@ const WrapLeft = styled.div`
 `;
 
 const WrapRight = styled.div`
-  padding: 2rem 0 2rem;
+  top: 0;
   max-width: 70rem;
+  padding: 2rem 0 2rem;
   height: auto;
+  flex:0.7;
+  ${respondTo.mobile`
+    max-width:34.5rem;
+    flex:1;
+  `}
 `;
 
 const WrapTitle = styled.div`
   font-size: 5rem;
+  ${respondTo.mobile`
+    font-size: 3rem;
+  `}
   font-family: S-CoreDream-6;
   margin: 2rem 0 2rem;
 `;
@@ -80,30 +101,52 @@ const WrapImage = styled.img`
 `;
 
 const WrapUrl = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0.8rem 0;
+    justify-content: center;
+    font-size: 1.5rem;
+  ${respondTo.mobile`
+    display: none;
+  `}
 `;
 
 const WrapMargin = styled.div`
-  margin-left: 1rem;
   font-size: 1.5em;
+  ${respondTo.mobile`
+    font-size: 1rem;
+  `}
   font-family: S-CoreDream-3;
 `;
 
 const WrapGitHub = styled.img`
   width: 13rem;
-  margin: 1rem;
+  margin: 1.5rem 1rem;
   cursor: pointer;
+`;
+
+const LogoContainer = styled.img`
+  display: inline-block;
+  width: 15rem;
+  margin: 3rem 1rem;
+  cursor: pointer;
+  ${respondTo.mobile`
+    display: none;
+  `}
+`;
+
+const ContributorArea = styled.div`
+  margin: 8% 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 const WrapContributor = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
-
   img {
     width: 4rem;
     height: 4rem;
@@ -115,7 +158,6 @@ const WrapContributor = styled.div`
 const WrapDescription = styled.textarea`
   font-family: S-CoreDream-2;
   color: #636363;
-  font-size: 2.5rem;
   width: 100%;
   border-width: 0;
   border-top-style: hidden;
@@ -123,6 +165,10 @@ const WrapDescription = styled.textarea`
   border-left-style: hidden;
   border-bottom-style: groove;
   user-select: none;
+  font-size: 2.5rem;
+  ${respondTo.mobile`
+    font-size: 1.5rem;
+  `}
   ::-webkit-scrollbar {
     background-color:white;
     width: 0.5rem;
@@ -137,8 +183,12 @@ const WrapSelector = styled.div`
   margin-top: 3rem;
   margin-bottom: 6rem;
   > div {
-    width: 20rem;
+    flex:1;
+    padding: 1%;
     font-size: 1.5rem;
+    ${respondTo.mobile`
+      font-size: 1rem;
+    `}
   }
 `;
 
@@ -197,7 +247,7 @@ export default function DetailPage({ match }) {
         <WrapContainer>
           <WrapLeft>
             <WrapImage src={toyData?.logoUrl} />
-            <div>
+            <ContributorArea>
               <WrapUrl>
                 👤
                 {' '}
@@ -215,12 +265,12 @@ export default function DetailPage({ match }) {
                   ),
                 )}
               </WrapContributor>
-            </div>
-            <WrapGitHub
-              onClick={() => window.open(toyData?.githubLink)}
-              src={GitHub}
-              alt="github-logo"
-            />
+              <LogoContainer
+                onClick={() => window.open(toyData?.githubLink)}
+                src={GitHub}
+                alt="github-logo"
+              />
+            </ContributorArea>
           </WrapLeft>
           <WrapRight>
             <WrapTitle>{toyData?.title}</WrapTitle>

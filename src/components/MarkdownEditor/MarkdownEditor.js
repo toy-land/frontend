@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import A from '@atoms';
 
 const Wrapper = styled.div`
-  height: 30%;
   width: 100%;
   background-color: white;
 `;

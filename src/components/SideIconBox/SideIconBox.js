@@ -1,3 +1,4 @@
+import { respondTo } from '@utils/mixin';
 import React from 'react';
 import styled from 'styled-components';
 import Pencil from './Pencile';
@@ -10,6 +11,9 @@ const SideIconArea = styled.div`
   width: 9rem;
   height: 14rem;
   background-color: transparent;
+  ${respondTo.mobile`
+    display: none;
+    `}
 `;
 
 const SideIconWrapper = styled.div`

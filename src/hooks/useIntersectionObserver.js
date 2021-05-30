@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 import { useEffect } from 'react';
 
-const useInfinteScroll = ({
+const useIntersectionObserver = ({
   root = null,
   target,
   onIntersect,
@@ -14,17 +14,15 @@ const useInfinteScroll = ({
       rootMargin,
       threshold,
     });
-
     if (!target) {
       return;
     }
-
     observer.observe(target);
 
     return () => {
-      observer.unobserve(target);
+      observer.disconnect();
     };
   }, [target, root, rootMargin, onIntersect, threshold]);
 };
 
-export default useInfinteScroll;
+export default useIntersectionObserver;
