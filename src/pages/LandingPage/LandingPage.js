@@ -35,7 +35,7 @@ const fadeIn = keyframes`
 `;
 
 const Curtain = styled.section`
-  height: 110vh;
+  height: 150vh;
 `;
 
 const WallPaper = styled.div`
@@ -44,6 +44,7 @@ const WallPaper = styled.div`
   display: flex;
   justify-content: center;
   margin: 0 5%;
+  margin-bottom: 10vh;
   animation-duration: 0.3s;
   animation-timing-function: ease-in-out;
   animation-name: ${slideDown};
