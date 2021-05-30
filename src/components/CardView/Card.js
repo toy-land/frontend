@@ -6,6 +6,7 @@ import styled, { css, keyframes } from 'styled-components';
 import { ItemTypes } from '@constants/itemType';
 import trash from '@assets/images/trash.png';
 import { toggleDrag } from '@modules/dragToy';
+import { respondTo } from '@utils/mixin';
 import CardContent from './CardContent';
 
 const fadeIn = keyframes`
@@ -18,7 +19,6 @@ const fadeIn = keyframes`
 `;
 
 const CardWrapper = styled.li`
-  flex-basis: 30%;
   height: 16rem;
   margin: 1.2rem;
   background-color: #004460;
@@ -27,6 +27,10 @@ const CardWrapper = styled.li`
   overflow: hidden;
   cursor: pointer;
   animation: ${fadeIn} 2s;
+  flex-basis: 30%;
+  ${respondTo.mobile`
+    flex-basis: 100%;
+    `}
 
   ${(props) => props.isDragReady
     && css`
