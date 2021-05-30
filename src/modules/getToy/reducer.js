@@ -12,15 +12,8 @@ const initialState = {
     loading: false,
     success: null,
     error: null,
-  },
-  getMoreToysStatus: {
-    loading: false,
-    success: null,
-    error: null,
-  },
-  toyObject: {
-    isLastPage: false,
     data: [],
+    isLastPage: false,
   },
 };
 
@@ -63,11 +56,8 @@ const getToy = (state = initialState, action) => {
           ...state.getToysStatus,
           loading: false,
           success: true,
-        },
-        toyObject: {
-          ...state.toyObject,
+          data: [...state.getToysStatus.data, ...action.payload],
           isLastPage: action.payload.length === 0,
-          data: [...state.toyObject.data, ...action.payload],
         },
       };
     case actions.getToysAsyncAction.failure:
@@ -75,38 +65,6 @@ const getToy = (state = initialState, action) => {
         ...state,
         getToysStatus: {
           ...state.getToysStatus,
-          loading: false,
-          success: false,
-          error: action.payload,
-        },
-      };
-    case actions.getMoreToysAsyncAction.request:
-      return {
-        ...state,
-        getMoreToysStatus: {
-          ...state.getMoreToysStatus,
-          loading: true,
-        },
-      };
-    case actions.getMoreToysAsyncAction.success:
-      return {
-        ...state,
-        getMoreToysStatus: {
-          ...state.getMoreToysStatus,
-          loading: false,
-          success: true,
-        },
-        toyObject: {
-          ...state.toyObject,
-          isLastPage: action.payload.length === 0,
-          data: [...state.toyObject.data, ...action.payload],
-        },
-      };
-    case actions.getMoreToysAsyncAction.failure:
-      return {
-        ...state,
-        getMoreToysStatus: {
-          ...state.getMoreToysStatus,
           loading: false,
           success: false,
           error: action.payload,
