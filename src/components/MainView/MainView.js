@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import C from '@components';
+import { respondTo } from '@utils/mixin';
 
 const CardArea = styled.div`
   display: flex;
@@ -19,6 +20,9 @@ const TopText = styled.div`
   letter-spacing: 0.1rem;
   padding: 0 8rem;
   color: white;
+  ${respondTo.mobile`
+      padding: 0 2rem;
+  `}
 `;
 
 function MainView() {
