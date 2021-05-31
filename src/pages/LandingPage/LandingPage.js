@@ -36,6 +36,9 @@ const fadeIn = keyframes`
 
 const Curtain = styled.section`
   height: 150vh;
+  ${respondTo.mobile`
+      display: none;
+  `}
 `;
 
 const WallPaper = styled.div`
@@ -52,22 +55,22 @@ const WallPaper = styled.div`
   img {
     animation: ${fadeIn} 2s;
     width:100%;
-    ${respondTo.mobile`
-      display: none;
-  `}
   }
 `;
 
 const Wrapper = styled.div`
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   opacity: 1;
 `;
 
 const WrapContainer = styled.div`
+  width:100%;
   max-width: 120rem;
-  width: 100%;
+  ${respondTo.mobile`
+      max-width: 35rem;
+  `}
 `;
 
 const Main = styled.div`
@@ -115,15 +118,17 @@ export default function LandingPage() {
               </Main>
             )
             : (
-              <Curtain>
-                <WallPaper active>
-                  <img src={LandingWallpaper} alt="welcome wallpaper" />
-                </WallPaper>
+              <>
+                <Curtain>
+                  <WallPaper active>
+                    <img src={LandingWallpaper} alt="welcome wallpaper" />
+                  </WallPaper>
+                </Curtain>
                 <div
                   ref={setTarget}
                   className="last-item"
                 />
-              </Curtain>
+              </>
             )}
         </WrapContainer>
       </Wrapper>

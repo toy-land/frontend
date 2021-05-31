@@ -6,11 +6,8 @@ const Wrapper = styled.header`
   top: 0;
   margin-top: 2rem;
   padding: 0 2rem;
-  max-width: 120rem;
   height: 10rem;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
 `;
 
 const WrapLogo = styled.h2`

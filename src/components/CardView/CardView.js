@@ -12,7 +12,6 @@ import { respondTo } from '@utils/mixin';
 import Card from './Card';
 
 const CardContainer = styled.section`
-  padding: 0 3rem;
   display: flex;
   align-items: center;
   height: 70vh;
@@ -20,7 +19,7 @@ const CardContainer = styled.section`
   overflow: auto;
   width: 100rem;
   ${respondTo.mobile`
-      width: 90%;
+      width: 100%;
   `}
   ::-webkit-scrollbar {
     display: none;
@@ -42,9 +41,10 @@ const CardList = styled.ul`
 `;
 
 const CardViewWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
   padding: 0 3rem;
+  ${respondTo.mobile`
+      padding: 0 1rem;
+  `}
 `;
 
 function CardView() {
