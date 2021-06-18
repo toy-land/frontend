@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import LandingWallpaper from '@assets/images/LandingWallpaper.png';
 
 import C from '@components';
 import { useSelector } from 'react-redux';
-import useIntersectionObserver from '@hooks/useIntersectionObserver';
 import { respondTo } from '@utils/mixin';
 
 const slideUp = keyframes`
@@ -83,20 +82,27 @@ const Main = styled.div`
 
 export default function LandingPage() {
   const [isDraw, setIsDraw] = useState(false);
-  const [target, setTarget] = useState(null);
+
+  let timer;
+  const throttle = () => {
+    if (!timer) {
+      timer = setTimeout(() => {
+        timer = null;
+        if (document.documentElement.scrollTop > 50) {
+          setIsDraw(true);
+        }
+      }, 200);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', throttle);
+    return () => window.removeEventListener('scroll', throttle);
+  }, []);
 
   const { loading: getToysLoading, success: getToysSuccess } = useSelector(
     (state) => state.getToy.getToysStatus,
   );
-
-  useIntersectionObserver({
-    target,
-    onIntersect: ([{ isIntersecting }]) => {
-      if (isIntersecting) {
-        setIsDraw(true);
-      }
-    },
-  });
 
   return (
     <>
@@ -118,17 +124,11 @@ export default function LandingPage() {
               </Main>
             )
             : (
-              <>
-                <Curtain>
-                  <WallPaper active>
-                    <img src={LandingWallpaper} alt="welcome wallpaper" />
-                  </WallPaper>
-                </Curtain>
-                <div
-                  ref={setTarget}
-                  className="last-item"
-                />
-              </>
+              <Curtain>
+                <WallPaper active>
+                  <img src={LandingWallpaper} alt="welcome wallpaper" />
+                </WallPaper>
+              </Curtain>
             )}
         </WrapContainer>
       </Wrapper>
