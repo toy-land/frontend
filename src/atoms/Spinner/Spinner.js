@@ -1,20 +1,8 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
-const Spinner = () => (
-  <StyledSpinner viewBox="0 0 50 50">
-    <circle
-      className="path"
-      cx="25"
-      cy="25"
-      r="20"
-      fill="none"
-      strokeWidth="4"
-    />
-  </StyledSpinner>
-);
-
 const StyledSpinner = styled.svg`
+  display: none;
   animation: rotate 1s linear infinite;
   width: 60px;
   height: 60px;
@@ -45,5 +33,29 @@ const StyledSpinner = styled.svg`
     }
   }
 `;
+
+const Spinner = () => {
+  const spinnerRef = useRef();
+  useEffect(() => {
+    setTimeout(() => {
+      if (spinnerRef.current) {
+        spinnerRef.current.style.display = 'flex';
+      }
+    }, 100);
+  }, []);
+
+  return (
+    <StyledSpinner viewBox="0 0 50 50" ref={spinnerRef}>
+      <circle
+        className="path"
+        cx="25"
+        cy="25"
+        r="20"
+        fill="none"
+        strokeWidth="4"
+      />
+    </StyledSpinner>
+  );
+};
 
 export default Spinner;
